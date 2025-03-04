@@ -1573,6 +1573,7 @@ dependencies = [
  "pdf_form",
  "reqwest",
  "serde",
+ "serde_json",
  "shuttle-axum",
  "shuttle-runtime",
 ]

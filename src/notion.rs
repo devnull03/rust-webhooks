@@ -1,4 +1,6 @@
 use reqwest::{header, Client};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::env;
 
 pub fn notion_client_init() -> Client {
@@ -55,6 +57,18 @@ fn build_filters() -> String {
     );
 
     filter_string
+}
+
+#[derive(Serialize, Deserialize)]
+struct QueryResponse {
+    object: String,
+    next_cursor: String,
+    has_more: bool,
+    results: Vec<Value> 
+}
+
+struct FilterResultProperties {
+
 }
 
 pub async fn fetch_data(client: &Client) {
