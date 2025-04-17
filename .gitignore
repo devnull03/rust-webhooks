@@ -5,3 +5,5 @@ Secrets*.toml
 .env
 
 ts/node_modules/
+
+templates/*.pdf
