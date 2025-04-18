@@ -3,6 +3,19 @@ use resend_rs::{
     Resend,
 };
 
+pub async fn send_email(
+    resend: &Resend,
+    email_content: &String,
+) -> Result<CreateEmailResponse, resend_rs::Error> {
+    let from = "devnull03 <dev@dvnl.work>";
+    let to = ["arnav@dvnl.work"];
+    let subject = "Email sent from webhooks server";
+
+    let email = CreateEmailBaseOptions::new(from, to, subject).with_text(email_content);
+
+    resend.emails.send(email).await
+}
+
 pub async fn send_notion_webhook_init_email(
     resend: &Resend,
     verification_token: &String,

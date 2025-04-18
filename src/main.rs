@@ -52,14 +52,16 @@ async fn hello_world() -> &'static str {
 
 async fn notion_webhook(
     State(state): State<Arc<AppData>>,
-    Json(payload): Json<notion::structs::InitWebhookRequest>,
+    body: String,
+    // Json(payload): Json<notion::structs::InitWebhookRequest>,
 ) -> String {
-    // let res = notion::fetch_data(&state.notion_client, &state.timesheet_db_id).await;
 
-    println!("{:?}", &payload.verification_token);
-    email::send_notion_webhook_init_email(&state.resend, &payload.verification_token)
-        .await
-        .unwrap();
+    email::send_email(
+        &state.resend,
+        &format!("make a timesheet bitch \n {:?}", body),
+    )
+    .await
+    .unwrap();
 
     "noice".to_string()
 }
