@@ -1,12 +1,11 @@
 use reqwest::{header, Client};
 use serde::{Deserialize, Serialize};
-use std::{env, fmt};
+use std::fmt;
 
-pub fn notion_client_init() -> Client {
-    let mut notion_api_key = header::HeaderValue::from_str(
-        format!("Bearer {}", env::var("NOTION_API_KEY").unwrap()).as_str(),
-    )
-    .unwrap();
+pub fn notion_client_init(key: String) -> Client {
+    let mut notion_api_key =
+        header::HeaderValue::from_str(format!("Bearer {}", key).as_str()).unwrap();
+
     notion_api_key.set_sensitive(true);
 
     let mut headers = header::HeaderMap::new();
@@ -24,40 +23,10 @@ pub fn notion_client_init() -> Client {
     client
 }
 
-pub fn get_current_pay_period() -> (String, String) {
-    // TODO: create current period logic, maybe fetch the current pay period pdf?
-    ("2025-02-24".to_string(), "2025-03-08".to_string())
-}
+pub async fn fetch_data(client: &Client, db_id: &String) -> NotionResponse {
+    let filters = utils::build_filters();
 
-pub fn build_filters() -> String {
-    let date_property_name = "start and end";
-    let current_pay_period = get_current_pay_period();
-
-    // let property_id_list = ["Iv%5D%5C", "SoQC", "ph%60e", "sv%60B", "hBj_"];
-
-    let filter_string = format!(
-        r#"{{"filter": {{"or": [ {{"property": "notes","rich_text": {{"contains": "\\ TODO"}}}},{{"and": [{{"property": "{date_property_name}","date": {{"on_or_after": "{pay_period_start}"}}}},{{"property": "{date_property_name}","date": {{"on_or_before": "{pay_period_end}"}}}} ]}} ]}}}}"#,
-        pay_period_start = current_pay_period.0,
-        pay_period_end = current_pay_period.1
-    );
-    // let mut filter_properties = String::new();
-    // for property_id in property_id_list {
-    //     filter_properties.push_str(format!("filter_properties=[{:?}]&", property_id).as_str());
-    // }
-    // filter_properties.pop();
-    // println!("{}", filter_properties);
-
-    filter_string
-}
-
-
-pub async fn fetch_data(client: &Client) -> NotionResponse {
-    let filters = build_filters();
-
-    let url = format!(
-        "https://api.notion.com/v1/databases/{db_id}/query",
-        db_id = env::var("DB_ID").unwrap()
-    );
+    let url = format!("https://api.notion.com/v1/databases/{db_id}/query");
 
     let res = client
         .post(url)
@@ -74,22 +43,34 @@ pub async fn fetch_data(client: &Client) -> NotionResponse {
     notion_data
 }
 
-pub async fn util_retrive_db(client: &Client) -> String {
-    let url = format!(
-        "https://api.notion.com/v1/databases/{db_id}/",
-        db_id = env::var("DB_ID").unwrap()
-    );
+pub async fn retrive_db(client: &reqwest::Client, db_id: &String) -> String {
+    let url = format!("https://api.notion.com/v1/databases/{db_id}/");
     println!("{:?}", url);
-    let res = client
-        .get(url)
-        .send()
-        .await
-        .unwrap()
-        .text()
-        .await
-        .unwrap();
+    let res = client.get(url).send().await.unwrap().text().await.unwrap();
 
     format!("{:?}", &res)
+}
+
+pub mod utils {
+
+    pub fn get_current_pay_period() -> (String, String) {
+        // TODO: create current period logic, maybe fetch the current pay period pdf?
+        ("2025-02-24".to_string(), "2025-03-08".to_string())
+    }
+
+    pub fn build_filters() -> String {
+        let date_property_name = "start and end";
+        let current_pay_period = get_current_pay_period();
+        // let property_id_list = ["Iv%5D%5C", "SoQC", "ph%60e", "sv%60B", "hBj_"];
+
+        let filter_string = format!(
+            r#"{{"filter": {{"or": [ {{"property": "notes","rich_text": {{"contains": "\\ TODO"}}}},{{"and": [{{"property": "{date_property_name}","date": {{"on_or_after": "{pay_period_start}"}}}},{{"property": "{date_property_name}","date": {{"on_or_before": "{pay_period_end}"}}}} ]}} ]}}}}"#,
+            pay_period_start = current_pay_period.0,
+            pay_period_end = current_pay_period.1
+        );
+
+        filter_string
+    }
 }
 
 // Response structs for Notion API
@@ -108,7 +89,7 @@ impl fmt::Display for NotionResponse {
         writeln!(f, "  Has More: {}", self.has_more)?;
         writeln!(f, "  Next Cursor: {:?}", self.next_cursor)?;
         writeln!(f, "  Results Count: {}", self.results.len())?;
-        
+
         for (i, page) in self.results.iter().enumerate() {
             writeln!(f, "\n=========== Page #{} ===========", i + 1)?;
             writeln!(f, "  ID: {}", page.id)?;
@@ -116,40 +97,88 @@ impl fmt::Display for NotionResponse {
             writeln!(f, "  URL: {}", page.url)?;
             writeln!(f, "  Created: {}", page.created_time)?;
             writeln!(f, "  Last Edited: {}", page.last_edited_time)?;
-            
+
             writeln!(f, "\n  Properties:")?;
-            
+
             // Start and End Date
-            writeln!(f, "    Start and End (ID: {}):", page.properties.start_and_end.id)?;
-            writeln!(f, "      Type: {}", page.properties.start_and_end.property_type)?;
-            writeln!(f, "      Start: {}", page.properties.start_and_end.date.start)?;
+            writeln!(
+                f,
+                "    Start and End (ID: {}):",
+                page.properties.start_and_end.id
+            )?;
+            writeln!(
+                f,
+                "      Type: {}",
+                page.properties.start_and_end.property_type
+            )?;
+            writeln!(
+                f,
+                "      Start: {}",
+                page.properties.start_and_end.date.start
+            )?;
             writeln!(f, "      End: {:?}", page.properties.start_and_end.date.end)?;
-            writeln!(f, "      Timezone: {:?}", page.properties.start_and_end.date.time_zone)?;
-            
+            writeln!(
+                f,
+                "      Timezone: {:?}",
+                page.properties.start_and_end.date.time_zone
+            )?;
+
             // Billable Hours
-            writeln!(f, "    Billable Hours (ID: {}):", page.properties.billable_hours.id)?;
-            writeln!(f, "      Type: {}", page.properties.billable_hours.property_type)?;
-            writeln!(f, "      Formula Type: {}", page.properties.billable_hours.formula.value_type)?;
-            writeln!(f, "      Hours: {:?}", page.properties.billable_hours.formula.number)?;
-            
+            writeln!(
+                f,
+                "    Billable Hours (ID: {}):",
+                page.properties.billable_hours.id
+            )?;
+            writeln!(
+                f,
+                "      Type: {}",
+                page.properties.billable_hours.property_type
+            )?;
+            writeln!(
+                f,
+                "      Formula Type: {}",
+                page.properties.billable_hours.formula.value_type
+            )?;
+            writeln!(
+                f,
+                "      Hours: {:?}",
+                page.properties.billable_hours.formula.number
+            )?;
+
             // Workplace
             writeln!(f, "    Workplace (ID: {}):", page.properties.workplace.id)?;
             writeln!(f, "      Type: {}", page.properties.workplace.property_type)?;
-            writeln!(f, "      Select ID: {}", page.properties.workplace.select.id)?;
+            writeln!(
+                f,
+                "      Select ID: {}",
+                page.properties.workplace.select.id
+            )?;
             writeln!(f, "      Name: {}", page.properties.workplace.select.name)?;
             writeln!(f, "      Color: {}", page.properties.workplace.select.color)?;
-            
+
             // Duration
             writeln!(f, "    Duration (ID: {}):", page.properties.duration.id)?;
             writeln!(f, "      Type: {}", page.properties.duration.property_type)?;
-            writeln!(f, "      Formula Type: {}", page.properties.duration.formula.value_type)?;
-            writeln!(f, "      Value: {:?}", page.properties.duration.formula.number)?;
-            
+            writeln!(
+                f,
+                "      Formula Type: {}",
+                page.properties.duration.formula.value_type
+            )?;
+            writeln!(
+                f,
+                "      Value: {:?}",
+                page.properties.duration.formula.number
+            )?;
+
             // Notes
             writeln!(f, "    Notes (ID: {}):", page.properties.notes.id)?;
             writeln!(f, "      Type: {}", page.properties.notes.property_type)?;
-            writeln!(f, "      Text Count: {}", page.properties.notes.rich_text.len())?;
-            
+            writeln!(
+                f,
+                "      Text Count: {}",
+                page.properties.notes.rich_text.len()
+            )?;
+
             for (j, text) in page.properties.notes.rich_text.iter().enumerate() {
                 writeln!(f, "      Text #{}", j + 1)?;
                 writeln!(f, "        Type: {}", text.text_type)?;
