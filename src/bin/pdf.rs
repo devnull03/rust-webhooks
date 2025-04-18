@@ -12,6 +12,8 @@ fn load_pdf<P: AsRef<Path>>(path: P) -> Result<Document, lopdf::Error> {
 fn main() {
     let path = "templates/sasi.pdf";
 
+    let field_identifiers = ["Month Day", "Start Time", "Finish Time", "Hours to be Paid", "Total hours"];
+
     match load_pdf(path) {
         Ok(doc) => {
             println!("Loaded PDF with {} page(s)", doc.get_pages().len());
