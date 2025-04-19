@@ -35,16 +35,16 @@ pub async fn notion_automation_check(
     let bytes = axum::body::to_bytes(body, usize::MAX).await.unwrap();
     let payload: WebhookAutomationEvent = serde_json::from_slice(&bytes).unwrap();
 
-    if payload
-        .source
-        .automation_id
-        .ne(&state.timesheet_automation_id)
-    {
-        return Response::builder()
-            .status(StatusCode::UNAUTHORIZED)
-            .body(Body::from("Invalid automation id"))
-            .unwrap();
-    }
+//     if payload
+//         .source
+//         .automation_id
+//         .ne(&state.timesheet_automation_id)
+//     {
+//         return Response::builder()
+//             .status(StatusCode::UNAUTHORIZED)
+//             .body(Body::from("Invalid automation id"))
+//             .unwrap();
+//     }
 
     let request = Request::from_parts(parts, Body::from(bytes));
     next.run(request).await
