@@ -12,14 +12,51 @@ use hmac::{Hmac, Mac};
 use sha2::Sha256;
 use subtle::ConstantTimeEq;
 
-use crate::AppData;
+use crate::{notion::structs::WebhookAutomationEvent, AppData};
 
-pub async fn notion_verification(
+pub async fn notion_automation_check(
     State(state): State<Arc<AppData>>,
     request: Request,
     next: Next,
 ) -> Response {
-    let verification_token = &state.notion_timesheet_webhook_token;
+    if request
+        .headers()
+        .get("user-agent")
+        .unwrap()
+        .ne("NotionAutomation")
+    {
+        return Response::builder()
+            .status(StatusCode::UNAUTHORIZED)
+            .body(Body::from("Invalid user agent"))
+            .unwrap();
+    }
+
+    let (parts, body) = request.into_parts();
+    let bytes = axum::body::to_bytes(body, usize::MAX).await.unwrap();
+    let payload: WebhookAutomationEvent = serde_json::from_slice(&bytes).unwrap();
+
+    if payload
+        .source
+        .automation_id
+        .ne(&state.timesheet_automation_id)
+    {
+        return Response::builder()
+            .status(StatusCode::UNAUTHORIZED)
+            .body(Body::from("Invalid automation id"))
+            .unwrap();
+    }
+
+    let request = Request::from_parts(parts, Body::from(bytes));
+    next.run(request).await
+}
+
+pub async fn _notion_verification(
+    State(_state): State<Arc<AppData>>,
+    request: Request,
+    next: Next,
+) -> Response {
+    //     let verification_token = &state.notion_timesheet_webhook_token;
+    let verification_token = "";
     let request_signature_string = match request.headers().get("X-Notion-Signature") {
         Some(signature) => signature.to_str().unwrap_or("").to_string(),
         None => {
@@ -31,7 +68,7 @@ pub async fn notion_verification(
     };
 
     let verification_token_string = verification_token.to_string();
-    let request = match buffer_request_body(
+    let request = match _buffer_request_body(
         request,
         &request_signature_string,
         &verification_token_string,
@@ -45,7 +82,7 @@ pub async fn notion_verification(
     next.run(request).await
 }
 
-fn verify_payload(
+fn _verify_payload(
     body_bytes: Bytes,
     request_signature: &String,
     verification_token: &String,
@@ -65,7 +102,7 @@ fn verify_payload(
     is_trusted_payload
 }
 
-async fn buffer_request_body(
+async fn _buffer_request_body(
     request: Request<Body>,
     request_signature: &String,
     verification_token: &String,
@@ -77,7 +114,7 @@ async fn buffer_request_body(
         .await
         .map_err(|err| (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()).into_response())?;
 
-    let is_trusted_payload = verify_payload(bytes.clone(), request_signature, verification_token);
+    let is_trusted_payload = _verify_payload(bytes.clone(), request_signature, verification_token);
     if !is_trusted_payload {
         return Err(Response::builder()
             .status(StatusCode::UNAUTHORIZED)

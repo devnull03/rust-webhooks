@@ -18,7 +18,7 @@ use std::{env, sync::Arc};
 pub struct AppData {
     notion_client: Client,
     timesheet_db_id: String,
-    notion_timesheet_webhook_token: String,
+    timesheet_automation_id: String,
     resend: Resend,
 }
 
@@ -28,13 +28,17 @@ async fn main(#[shuttle_runtime::Secrets] secrets: SecretStore) -> shuttle_axum:
     let shared_state = Arc::new(AppData {
         notion_client,
         timesheet_db_id: secrets.get("DB_ID").unwrap(),
-        notion_timesheet_webhook_token: secrets.get("NOTION_WEBHOOK_TOKEN").unwrap(),
+        timesheet_automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
         resend: Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str()),
     });
 
     let router = Router::new()
         .route("/", get(hello_world))
         .route("/notion-hook", post(notion_webhook))
+        .layer(middleware::from_fn_with_state(
+            shared_state.clone(),
+            middlewares::notion_automation_check,
+        ))
         // .layer(middleware::from_fn_with_state(
         //     shared_state.clone(),
         //     middlewares::notion_verification,
@@ -52,13 +56,20 @@ async fn hello_world() -> &'static str {
 
 async fn notion_webhook(
     State(state): State<Arc<AppData>>,
-    body: String,
-    // Json(payload): Json<notion::structs::InitWebhookRequest>,
+    // body: String,
+    Json(payload): Json<notion::structs::WebhookAutomationEvent>,
 ) -> String {
+    if payload
+        .source
+        .automation_id
+        .ne(&state.timesheet_automation_id)
+    {
+        return "not the automation you are looking for".to_string();
+    }
 
     email::send_email(
         &state.resend,
-        &format!("make a timesheet bitch \n {:?}", body),
+        &format!("make a timesheet bitch \n {:?}", payload.source),
     )
     .await
     .unwrap();

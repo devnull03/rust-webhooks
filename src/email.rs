@@ -16,7 +16,7 @@ pub async fn send_email(
     resend.emails.send(email).await
 }
 
-pub async fn send_notion_webhook_init_email(
+pub async fn _send_notion_webhook_init_email(
     resend: &Resend,
     verification_token: &String,
 ) -> Result<CreateEmailResponse, resend_rs::Error> {
@@ -29,9 +29,11 @@ pub async fn send_notion_webhook_init_email(
     resend.emails.send(email).await
 }
 
-pub async fn send_timesheet_email(resend: &Resend) -> Result<CreateEmailResponse, resend_rs::Error> {
+pub async fn send_timesheet_email(
+    resend: &Resend,
+) -> Result<CreateEmailResponse, resend_rs::Error> {
     let from = "devnull03 <dev@dvnl.work>";
-    let to = ["arnav.mehta@student.ufv.ca"];
+    let to = ["arnav.mehta@student.ufv.ca", "arnav@dvnl.work"];
     let subject = "Notion webhook verification token";
 
     let email = CreateEmailBaseOptions::new(from, to, subject).with_text("to be implimented");

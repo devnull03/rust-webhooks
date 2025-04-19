@@ -50,10 +50,45 @@ pub async fn retrive_db(client: &reqwest::Client, db_id: &String) -> String {
 }
 
 pub mod utils {
+    use chrono::{Datelike, Local};
 
     pub fn get_current_pay_period() -> (String, String) {
-        // TODO: create current period logic, maybe fetch the current pay period pdf?
-        ("2025-02-24".to_string(), "2025-03-08".to_string())
+        let mut current_period = (String::new(), String::new());
+
+        let period_window = (9, 23);
+        let now = Local::now().date_naive();
+        let day = now.day();
+
+        if day <= period_window.0 {
+            current_period.0 = now
+                .with_day(period_window.1 + 1)
+                .unwrap()
+                .with_month(if now.month() == 1 {
+                    12
+                } else {
+                    now.month() - 1
+                })
+                .unwrap()
+                .to_string();
+            current_period.1 = now.with_day(period_window.0 - 1).unwrap().to_string();
+        } else if day >= period_window.1 {
+            current_period.0 = now.with_day(period_window.1 + 1).unwrap().to_string();
+            current_period.1 = now
+                .with_day(period_window.0 - 1)
+                .unwrap()
+                .with_month(if now.month() == 12 {
+                    1
+                } else {
+                    now.month() + 1
+                })
+                .unwrap()
+                .to_string();
+        } else {
+            current_period.0 = now.with_day(period_window.0).unwrap().to_string();
+            current_period.1 = now.with_day(period_window.1).unwrap().to_string();
+        }
+
+        current_period
     }
 
     pub fn build_filters() -> String {
@@ -76,45 +111,20 @@ pub mod structs {
     use std::fmt;
 
     #[derive(Serialize, Deserialize, Debug)]
-    pub struct InitWebhookRequest {
-        pub verification_token: String,
+    pub struct WebhookAutomationEvent {
+        pub source: AutomationSource,
+        pub data: serde_json::Value, // Using generic Value, don't really need this shit
     }
 
     #[derive(Serialize, Deserialize, Debug)]
-    pub struct WebhookRequest {
-        pub id: String,
-        pub timestamp: String,
-        pub workspace_id: String,
-        pub subscription_id: String,
-        pub integration_id: String,
+    pub struct AutomationSource {
         #[serde(rename = "type")]
-        pub event_type: String,
-        pub authors: Vec<Author>,
-        pub accessible_by: Vec<AccessibleBy>,
-        pub attempt_number: u8,
-        pub entity: Entity,
-        pub data: serde_json::Value,
-    }
-
-    #[derive(Serialize, Deserialize, Debug)]
-    pub struct Author {
-        pub id: String,
-        #[serde(rename = "type")]
-        pub author_type: String, // "person", "bot", or "agent"
-    }
-
-    #[derive(Serialize, Deserialize, Debug)]
-    pub struct AccessibleBy {
-        pub id: String,
-        #[serde(rename = "type")]
-        pub user_type: String, // Always "person" for accessible_by
-    }
-
-    #[derive(Serialize, Deserialize, Debug)]
-    pub struct Entity {
-        pub id: String,
-        #[serde(rename = "type")]
-        pub entity_type: String, // "page", "block", or "database"
+        pub source_type: String,
+        pub automation_id: String,
+        pub action_id: String,
+        pub event_id: Option<String>,
+        pub user_id: Option<String>,
+        pub attempt: Option<i32>,
     }
 
     // Response structs for Notion API
