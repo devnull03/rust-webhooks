@@ -4,7 +4,7 @@ use std::convert::TryFrom;
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
-use tracing::{info, error};
+use tracing::{error, info};
 
 use crate::notion::structs::Page;
 
@@ -130,11 +130,15 @@ impl TryFrom<Page> for TimesheetEntry {
     type Error = String;
 
     fn try_from(page: Page) -> Result<Self, Self::Error> {
-        let start_date = DateTime::parse_from_str(
-            &page.properties.start_and_end.date.start,
-            "%Y-%m-%dT%H:%M:%S.%fZ",
-        )
-        .map_err(|e| e.to_string())?;
+        let start_str = &page.properties.start_and_end.date.start;
+
+        // Try parsing with multiple formats to handle different potential formats
+        // Including the timezone offset format "-07:00" found in the actual data
+        let start_date = DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S%.3f%:z")
+            .or_else(|_| DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S%:z"))
+            .or_else(|_| DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S.%fZ"))
+            .or_else(|_| DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%SZ"))
+            .map_err(|e| format!("Invalid start date format '{}': {}", start_str, e))?;
 
         let month = start_date.month();
         let day = start_date.day();
@@ -148,8 +152,14 @@ impl TryFrom<Page> for TimesheetEntry {
             .end
             .as_ref()
             .ok_or("Missing end time")?;
-        let end_date =
-            DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S.%fZ").map_err(|e| e.to_string())?;
+
+        // Same approach for end time with the timezone offset format
+        let end_date = DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S%.3f%:z")
+            .or_else(|_| DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S%:z"))
+            .or_else(|_| DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S.%fZ"))
+            .or_else(|_| DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%SZ"))
+            .map_err(|e| format!("Invalid end date format '{}': {}", end, e))?;
+
         let end = end_date.format("%H:%M").to_string();
 
         let paid_hours = page
