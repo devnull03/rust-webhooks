@@ -4,6 +4,7 @@ use std::convert::TryFrom;
 use std::fs::File;
 use std::io::BufReader;
 use std::path::Path;
+use tracing::{info, error};
 
 use crate::notion::structs::Page;
 
@@ -27,7 +28,7 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
 
     match load_pdf(template_path) {
         Ok(mut doc) => {
-            println!("Loaded PDF with {} page(s)", doc.get_pages().len());
+            info!("Loaded PDF with {} page(s)", doc.get_pages().len());
 
             let field_refs = {
                 let catalog = doc.catalog().unwrap();
@@ -35,7 +36,7 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
                 let acroform = doc.get_dictionary(acroform_ref).unwrap();
 
                 if let Ok(Object::Array(fields)) = acroform.get(b"Fields") {
-                    println!("Found {} form fields", fields.len());
+                    info!("Found {} form fields", fields.len());
 
                     fields
                         .iter()
@@ -52,7 +53,7 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
                 if let Ok(field_dict) = doc.get_dictionary_mut(*field_ref) {
                     if let Ok(Object::String(name_bytes, _)) = field_dict.get(b"T") {
                         let field_name = String::from_utf8_lossy(name_bytes.as_slice());
-                        println!("Field name: {}", field_name);
+                        info!("Processing form field: {}", field_name);
 
                         if field_name.starts_with(field_identifiers.4) {
                             field_dict.set(b"V", data.total_hours.to_string());
@@ -96,25 +97,25 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
             }
 
             match doc.save_to(&mut output_buffer) {
-                Ok(_) => println!(
+                Ok(_) => info!(
                     "Successfully converted PDF to bytes, size: {} bytes",
                     output_buffer.len()
                 ),
-                Err(e) => eprintln!("Failed to convert PDF to bytes: {}", e),
+                Err(e) => error!("Failed to convert PDF to bytes: {}", e),
             }
 
             Ok(output_buffer)
         }
         Err(e) => {
-            eprintln!("Failed to load PDF: {}", e);
+            error!("Failed to load PDF: {}", e);
             Err(format!("Failed to load PDF: {:?}", e))
         }
     }
 }
 
 pub struct TimesheetData {
-    entries: Vec<TimesheetEntry>,
-    total_hours: f64,
+    pub entries: Vec<TimesheetEntry>,
+    pub total_hours: f64,
 }
 
 pub struct TimesheetEntry {

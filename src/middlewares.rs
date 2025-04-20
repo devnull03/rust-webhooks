@@ -11,6 +11,7 @@ use bytes::Bytes;
 use hmac::{Hmac, Mac};
 use sha2::Sha256;
 use subtle::ConstantTimeEq;
+use tracing::{info, error};
 
 use crate::{notion::structs::WebhookAutomationEvent, AppData};
 
@@ -19,15 +20,19 @@ pub async fn notion_automation_check(
     request: Request,
     next: Next,
 ) -> Response {
+    info!("Checking Notion automation webhook request");
+
     if request
         .headers()
         .get("user-agent")
         .unwrap()
         .ne("NotionAutomation")
     {
+        let error_message = "Invalid user agent";
+        error!("Automation webhook validation failed: {}", error_message);
         return Response::builder()
             .status(StatusCode::UNAUTHORIZED)
-            .body(Body::from("Invalid user agent"))
+            .body(Body::from(error_message))
             .unwrap();
     }
 
@@ -40,11 +45,15 @@ pub async fn notion_automation_check(
         .automation_id
         .ne(&state.timesheet_automation_id)
     {
+        let error_message = "Invalid automation id";
+        error!("Automation webhook validation failed: {}", error_message);
         return Response::builder()
             .status(StatusCode::UNAUTHORIZED)
-            .body(Body::from("Invalid automation id"))
+            .body(Body::from(error_message))
             .unwrap();
     }
+
+    info!("Automation webhook validation successful");
 
     let request = Request::from_parts(parts, Body::from(bytes));
     next.run(request).await

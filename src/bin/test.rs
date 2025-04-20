@@ -36,5 +36,5 @@ fn main() {
         current_period.1 = now.with_day(period_window.1).unwrap().to_string();
     }
 
-    println!("{:?}", current_period);
+//     info!("Current period: {:?}", current_period);
 }
