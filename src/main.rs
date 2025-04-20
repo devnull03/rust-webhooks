@@ -1,7 +1,7 @@
 mod email;
 mod middlewares;
 mod notion;
-// mod pdf;
+mod pdf;
 
 use axum::{
     extract::State,
@@ -9,6 +9,7 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
+use pdf::{create_sasi_timesheet, TimesheetData};
 use reqwest::Client;
 use resend_rs::Resend;
 use shuttle_runtime::SecretStore;
@@ -67,14 +68,24 @@ async fn notion_webhook(
         return "not the automation you are looking for".to_string();
     }
 
-    email::send_email(
-        &state.resend,
-        &format!("make a timesheet bitch \n {:?}", payload.source),
-    )
-    .await
-    .unwrap();
+    let timesheet_raw_data = notion::fetch_data(&state.notion_client, &state.timesheet_db_id).await;
 
-    "noice".to_string()
+    match TimesheetData::try_from(timesheet_raw_data.results) {
+        Ok(timesheet_data) => {
+            let timesheet = create_sasi_timesheet(timesheet_data).unwrap();
+
+            let email_res = email::send_timesheet_email(&state.resend, timesheet).await;
+
+            match email_res {
+                Ok(res) => {
+                    println!("{}", res.id);
+                    res.id.to_string()
+                }
+                Err(e) => format!("Error sending email (Error: {})", e)
+            }
+        }
+        Err(err) => format!("Error with parsing your linked database (Error: {})", err),
+    }
 }
 
 async fn notion_test(State(state): State<Arc<AppData>>) -> String {

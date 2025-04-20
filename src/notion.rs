@@ -50,10 +50,11 @@ pub async fn retrive_db(client: &reqwest::Client, db_id: &String) -> String {
 }
 
 pub mod utils {
-    use chrono::{Datelike, Local};
+    use chrono::{Datelike, Local, NaiveDate};
 
-    pub fn get_current_pay_period() -> (String, String) {
-        let mut current_period = (String::new(), String::new());
+    pub fn get_current_pay_period() -> (NaiveDate, NaiveDate) {
+        let mut current_period: (NaiveDate, NaiveDate) =
+            (NaiveDate::default(), NaiveDate::default());
 
         let period_window = (9, 23);
         let now = Local::now().date_naive();
@@ -68,11 +69,10 @@ pub mod utils {
                 } else {
                     now.month() - 1
                 })
-                .unwrap()
-                .to_string();
-            current_period.1 = now.with_day(period_window.0 - 1).unwrap().to_string();
+                .unwrap();
+            current_period.1 = now.with_day(period_window.0 - 1).unwrap();
         } else if day >= period_window.1 {
-            current_period.0 = now.with_day(period_window.1 + 1).unwrap().to_string();
+            current_period.0 = now.with_day(period_window.1 + 1).unwrap();
             current_period.1 = now
                 .with_day(period_window.0 - 1)
                 .unwrap()
@@ -81,11 +81,10 @@ pub mod utils {
                 } else {
                     now.month() + 1
                 })
-                .unwrap()
-                .to_string();
+                .unwrap();
         } else {
-            current_period.0 = now.with_day(period_window.0).unwrap().to_string();
-            current_period.1 = now.with_day(period_window.1).unwrap().to_string();
+            current_period.0 = now.with_day(period_window.0).unwrap();
+            current_period.1 = now.with_day(period_window.1).unwrap();
         }
 
         current_period
@@ -131,7 +130,7 @@ pub mod structs {
     #[derive(Serialize, Deserialize, Debug)]
     pub struct NotionResponse {
         object: String,
-        results: Vec<Page>,
+        pub results: Vec<Page>,
         next_cursor: Option<String>,
         has_more: bool,
     }
@@ -251,16 +250,16 @@ pub mod structs {
         id: String,
         created_time: String,
         last_edited_time: String,
-        properties: PageProperties,
+        pub properties: PageProperties,
         url: String,
     }
 
     #[derive(Serialize, Deserialize, Debug)]
     pub struct PageProperties {
         #[serde(rename = "start and end")]
-        start_and_end: DateProperty,
+        pub start_and_end: DateProperty,
         #[serde(rename = "Billable Hours")]
-        billable_hours: FormulaProperty,
+        pub billable_hours: FormulaProperty,
         #[serde(rename = "Workplace")]
         workplace: SelectProperty,
         #[serde(rename = "Duration")]
@@ -274,13 +273,13 @@ pub mod structs {
         id: String,
         #[serde(rename = "type")]
         property_type: String,
-        date: DateValue,
+        pub date: DateValue,
     }
 
     #[derive(Serialize, Deserialize, Debug)]
     pub struct DateValue {
-        start: String,
-        end: Option<String>,
+        pub start: String,
+        pub end: Option<String>,
         time_zone: Option<String>,
     }
 
@@ -289,14 +288,14 @@ pub mod structs {
         id: String,
         #[serde(rename = "type")]
         property_type: String,
-        formula: FormulaValue,
+        pub formula: FormulaValue,
     }
 
     #[derive(Serialize, Deserialize, Debug)]
     pub struct FormulaValue {
         #[serde(rename = "type")]
         value_type: String,
-        number: Option<f64>,
+        pub number: Option<f64>,
     }
 
     #[derive(Serialize, Deserialize, Debug)]
