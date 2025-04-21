@@ -132,8 +132,6 @@ impl TryFrom<Page> for TimesheetEntry {
     fn try_from(page: Page) -> Result<Self, Self::Error> {
         let start_str = &page.properties.start_and_end.date.start;
 
-        // Try parsing with multiple formats to handle different potential formats
-        // Including the timezone offset format "-07:00" found in the actual data
         let start_date = DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S%.3f%:z")
             .or_else(|_| DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S%:z"))
             .or_else(|_| DateTime::parse_from_str(start_str, "%Y-%m-%dT%H:%M:%S.%fZ"))
@@ -153,7 +151,6 @@ impl TryFrom<Page> for TimesheetEntry {
             .as_ref()
             .ok_or("Missing end time")?;
 
-        // Same approach for end time with the timezone offset format
         let end_date = DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S%.3f%:z")
             .or_else(|_| DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S%:z"))
             .or_else(|_| DateTime::parse_from_str(end, "%Y-%m-%dT%H:%M:%S.%fZ"))
