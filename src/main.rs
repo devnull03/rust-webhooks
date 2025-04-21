@@ -113,29 +113,30 @@ async fn notion_webhook(
                         }
                         Err(e) => {
                             error!("Error sending email: {}", e);
-                            format!("Error sending email (Error: {})", e)
+                            let error_msg = format!("Error sending email (Error: {})", e);
+                            let _ = email::send_error_info(&state.resend, &error_msg).await;
+                            error_msg
                         }
                     }
                 }
                 Err(e) => {
                     error!("Failed to create timesheet PDF: {}", e);
-                    format!("Error creating timesheet PDF: {}", e)
+                    let error_msg = format!("Error creating timesheet PDF: {}", e);
+                    let _ = email::send_error_info(&state.resend, &error_msg).await;
+                    error_msg
                 }
             }
         }
         Err(err) => {
             error!("Error parsing Notion database: {}", err);
-            format!("Error with parsing your linked database (Error: {})", err)
+            let error_msg = format!("Error with parsing your linked database (Error: {})", err);
+            let _ = email::send_error_info(&state.resend, &error_msg).await;
+            error_msg
         }
     }
 }
 
 async fn notion_test(State(state): State<Arc<AppData>>) -> String {
-    // info!("Testing Notion API connection for database: {}", state.timesheet_db_id);
-    // let res = notion::fetch_data(&state.notion_client, &state.timesheet_db_id).await.unwrap();
-    // info!("Received {} results from Notion", res.results.len());
-    // format!("{:?}", res)
-
     info!(
         "Fetching timesheet data from Notion database: {}",
         state.timesheet_db_id
@@ -167,19 +168,25 @@ async fn notion_test(State(state): State<Arc<AppData>>) -> String {
                         }
                         Err(e) => {
                             error!("Error sending email: {}", e);
-                            format!("Error sending email (Error: {})", e)
+                            let error_msg = format!("Error sending email (Error: {})", e);
+                            let _ = email::send_error_info(&state.resend, &error_msg).await;
+                            error_msg
                         }
                     }
                 }
                 Err(e) => {
                     error!("Failed to create timesheet PDF: {}", e);
-                    format!("Error creating timesheet PDF: {}", e)
+                    let error_msg = format!("Error creating timesheet PDF: {}", e);
+                    let _ = email::send_error_info(&state.resend, &error_msg).await;
+                    error_msg
                 }
             }
         }
         Err(err) => {
             error!("Error parsing Notion database: {}", err);
-            format!("Error with parsing your linked database (Error: {})", err)
+            let error_msg = format!("Error with parsing your linked database (Error: {})", err);
+            let _ = email::send_error_info(&state.resend, &error_msg).await;
+            error_msg
         }
     }
 }

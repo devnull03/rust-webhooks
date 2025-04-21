@@ -92,3 +92,25 @@ pub async fn send_timesheet_email(
 
     result
 }
+
+pub async fn send_error_info(
+    resend: &Resend,
+    error_info: &str,
+) -> Result<CreateEmailResponse, resend_rs::Error> {
+    let from = "devnull03 <dev@dvnl.work>";
+    let to = ["dev@dvnl.work"];
+    let subject = "Error from webhooks server";
+
+    info!("Sending error information email");
+    info!("Error details: {}", error_info);
+
+    let email = CreateEmailBaseOptions::new(from, to, subject).with_text(error_info);
+
+    let result = resend.emails.send(email).await;
+    match &result {
+        Ok(response) => info!("Error info email sent successfully with ID: {}", response.id),
+        Err(e) => error!("Failed to send error info email: {}", e),
+    }
+
+    result
+}
