@@ -15,7 +15,7 @@ use crate::{
     middlewares, AppData,
 };
 
-pub fn setup_server(shared_state: Arc<AppData>) -> shuttle_axum::ShuttleAxum {
+pub fn setup_server(shared_state: Arc<AppData>) -> Router {
     info!("Setting up router");
     let router = Router::new()
         .route("/", get(hello_world))
@@ -33,7 +33,7 @@ pub fn setup_server(shared_state: Arc<AppData>) -> shuttle_axum::ShuttleAxum {
         .with_state(shared_state);
 
     info!("Server initialization complete");
-    Ok(router.into())
+    router
 }
 
 async fn hello_world() -> &'static str {

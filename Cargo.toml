@@ -5,7 +5,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-axum = "0.8.3"
+axum = "0.8.4"
 lopdf = "=0.36.0"
 reqwest = "0.12.12"
 serde = { version = "1.0.195", features = ["derive"] }
@@ -13,14 +13,18 @@ serde_json = "1.0.140"
 shuttle-axum = "0.53.0"
 shuttle-runtime = "0.53.0"
 hmac = "0.12.0"
-sha2 = "0.10.0"
+sha2 = "0.10.9"
 subtle = "2.4.0"
 hex = "0.4.3"
 hyper = { version = "1.6.0", features = ["full"] }
 bytes = "1.0"
 http-body = "1.0.1"
 http-body-util = "0.1.0"
-resend-rs = "0.12.1"
-tokio = { version = "1.44.2", features = ["macros", "rt-multi-thread"] }
-chrono = "0.4.26"
+resend-rs = "0.14.1"
+tokio = { version = "1.45.0", features = ["macros", "rt-multi-thread"] }
+chrono = "0.4.41"
 tracing = "0.1"
+apalis = { version = "0.7.1", features = ["tracing", "limit", "catch-panic"] }
+apalis-cron = "0.7.1"
+tower = { version = "0.5.2", features = ["load-shed"] }
+anyhow = "1.0.98"
