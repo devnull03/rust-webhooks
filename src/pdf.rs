@@ -1,5 +1,5 @@
 use chrono::{DateTime, Datelike};
-use lopdf::{Document, Object};
+use lopdf::{Document, Object, StringFormat, dictionary};
 use std::convert::TryFrom;
 use std::fs::File;
 use std::io::BufReader;
@@ -56,7 +56,8 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
                         info!("Processing form field: {}", field_name);
 
                         if field_name.starts_with(field_identifiers.4) {
-                            field_dict.set(b"V", data.total_hours.to_string());
+                            let value = data.total_hours.to_string();
+                            update_field_appearance(field_dict, &value);
                             break;
                         }
 
@@ -90,7 +91,7 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
                         }
 
                         if !value.is_empty() {
-                            field_dict.set(b"V", value);
+                            update_field_appearance(field_dict, &value);
                         }
                     }
                 }
@@ -111,6 +112,95 @@ pub fn create_sasi_timesheet(data: TimesheetData) -> Result<Vec<u8>, String> {
             Err(format!("Failed to load PDF: {:?}", e))
         }
     }
+}
+
+fn update_field_appearance(field_dict: &mut lopdf::Dictionary, value: &str) {
+    // First: Set the value directly for browser compatibility
+    field_dict.set(b"V", Object::String(value.as_bytes().to_vec(), StringFormat::Literal));
+    
+    // Remove any existing appearance stream to start clean
+    field_dict.remove(b"AP");
+    
+    // Get field rectangle
+    let rect = if let Ok(Object::Array(rect)) = field_dict.get(b"Rect") {
+        rect.clone()
+    } else {
+        vec![
+            Object::Integer(0),
+            Object::Integer(0),
+            Object::Integer(100),
+            Object::Integer(30),
+        ]
+    };
+    
+    // Extract dimensions
+    let x1 = if let Object::Integer(val) = rect[0] { val as f32 } else { 0.0 };
+    let y1 = if let Object::Integer(val) = rect[1] { val as f32 } else { 0.0 };
+    let x2 = if let Object::Integer(val) = rect[2] { val as f32 } else { 100.0 };
+    let y2 = if let Object::Integer(val) = rect[3] { val as f32 } else { 30.0 };
+    let width = x2 - x1;
+    let height = y2 - y1;
+    
+    // Create a simple but effective appearance stream
+    // Using a simpler content stream focused on compatibility
+    let stream_content = format!(
+        "BT\n/Helv 10 Tf\n0 g\n2 {} Td\n({}) Tj\nET",
+        height - 12.0, // Adjust text position for visibility
+        value.replace("(", "\\(").replace(")", "\\)") // Escape parentheses
+    );
+    
+    // Create a minimal stream dictionary - fewer entries for better compatibility
+    let stream_dict = dictionary! {
+        b"Subtype" => Object::Name(b"Form".to_vec()),
+        b"BBox" => Object::Array(vec![
+            Object::Integer(0),
+            Object::Integer(0),
+            Object::Integer(width as i64),
+            Object::Integer(height as i64),
+        ]),
+        b"Resources" => dictionary! {
+            b"Font" => dictionary! {
+                b"Helv" => dictionary! {
+                    b"Type" => Object::Name(b"Font".to_vec()),
+                    b"Subtype" => Object::Name(b"Type1".to_vec()),
+                    b"BaseFont" => Object::Name(b"Helvetica".to_vec()),
+                },
+            },
+        },
+    };
+    
+    // Create the stream
+    let ap_stream = lopdf::Stream::new(
+        stream_dict,
+        stream_content.as_bytes().to_vec(),
+    );
+    
+    // Set up the appearance dictionary
+    let mut ap_dict = dictionary! {};
+    ap_dict.set(b"N", Object::Stream(ap_stream));
+    field_dict.set(b"AP", Object::Dictionary(ap_dict));
+    
+    // Ensure field is set to display as intended
+    // For text fields, we want to control these key attributes:
+    field_dict.set(b"FT", Object::Name(b"Tx".to_vec())); // Ensure it's a text field
+    field_dict.set(b"DA", Object::String(b"/Helv 10 Tf 0 g".to_vec(), StringFormat::Literal)); // Default appearance
+    
+    // MK dictionary for presentation characteristics
+    let mut mk_dict = dictionary! {};
+    mk_dict.set(b"BG", Object::Array(vec![
+        Object::Real(1.0), // White background
+        Object::Real(1.0),
+        Object::Real(1.0),
+    ]));
+    field_dict.set(b"MK", Object::Dictionary(mk_dict));
+    
+    // Clear any flags that might hide the field
+    // Setting common bits for visibility and printing
+    field_dict.set(b"F", Object::Integer(4)); // Print bit set, others cleared
+    
+    // Set specific field flags
+    let field_flags = 0; // No special flags, basic text field
+    field_dict.set(b"Ff", Object::Integer(field_flags));
 }
 
 pub struct TimesheetData {
