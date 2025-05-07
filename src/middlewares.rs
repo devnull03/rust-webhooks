@@ -13,7 +13,7 @@ use sha2::Sha256;
 use subtle::ConstantTimeEq;
 use tracing::{info, error};
 
-use crate::{notion::structs::WebhookAutomationEvent, AppData};
+use crate::{helpers::notion::structs::WebhookAutomationEvent, AppData};
 
 pub async fn notion_automation_check(
     State(state): State<Arc<AppData>>,

@@ -1,7 +1,5 @@
-mod email;
+mod helpers;
 mod middlewares;
-mod notion;
-mod pdf;
 
 use axum::{
     extract::State,
@@ -9,7 +7,10 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
-use pdf::{create_sasi_timesheet, TimesheetData};
+use helpers::{
+    email, notion,
+    pdf::{create_sasi_timesheet, TimesheetData},
+};
 use reqwest::Client;
 use resend_rs::Resend;
 use shuttle_runtime::SecretStore;

@@ -5,7 +5,7 @@ use resend_rs::{
 };
 use tracing::{error, info};
 
-use crate::notion;
+use crate::helpers::notion;
 
 pub async fn _send_email(
     resend: &Resend,
