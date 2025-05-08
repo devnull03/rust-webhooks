@@ -24,7 +24,7 @@ resend-rs = "0.14.1"
 tokio = { version = "1.45.0", features = ["macros", "rt-multi-thread"] }
 chrono = "0.4.41"
 tracing = "0.1"
-apalis = { version = "0.7.1", features = ["tracing", "limit", "catch-panic"] }
+apalis = { version = "0.7.1", features = ["tracing", "limit", "catch-panic", "retry"] }
 apalis-cron = "0.7.1"
 tower = { version = "0.5.2", features = ["load-shed"] }
 anyhow = "1.0.98"

@@ -15,7 +15,7 @@ use crate::{
     middlewares, AppData,
 };
 
-pub fn setup_server(shared_state: Arc<AppData>) -> Router {
+pub fn build_router(shared_state: Arc<AppData>) -> Router {
     info!("Setting up router");
     let router = Router::new()
         .route("/", get(hello_world))

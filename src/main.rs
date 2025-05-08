@@ -3,11 +3,11 @@ mod middlewares;
 mod scheduler;
 mod server;
 
+use apalis::prelude::Monitor;
 use axum::Router;
 use helpers::notion;
 use reqwest::Client;
 use resend_rs::Resend;
-use server::setup_server;
 use shuttle_runtime::SecretStore;
 use std::{env, sync::Arc};
 use tracing::info;
@@ -21,6 +21,7 @@ pub struct AppData {
 }
 pub struct CustomService {
     router: Router,
+    monitor: Monitor,
 }
 
 #[shuttle_runtime::main]
@@ -41,10 +42,11 @@ async fn main(
         resend: Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str()),
     });
 
-    // scheduler::main();
-    let router = setup_server(shared_state.clone());
+    let router = server::build_router(shared_state.clone());
 
-    Ok(CustomService { router })
+    let monitor = scheduler::build_cron_worker_monitor(shared_state.clone());
+
+    Ok(CustomService { router, monitor })
 }
 
 #[shuttle_runtime::async_trait]
@@ -57,7 +59,7 @@ impl shuttle_runtime::Service for CustomService {
         };
 
         let monitor = async {
-            // TODO
+            // self.monitor.run().await.unwrap();
         };
 
         let _res = tokio::join!(http, monitor);
