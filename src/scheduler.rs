@@ -1,36 +1,15 @@
-use apalis::layers::retry::RetryPolicy;
-use apalis::prelude::*;
-
-use apalis_cron::CronContext;
-use apalis_cron::CronStream;
-use apalis_cron::Schedule;
-
-use chrono::DateTime;
-use chrono::Local;
-use chrono::Utc;
-use serde::Deserialize;
-use serde::Serialize;
-use std::future::Future;
-use std::str::FromStr;
-use std::sync::Arc;
-use std::time::Duration;
-use tracing::info;
+use apalis::{layers::retry::RetryPolicy, prelude::*};
+use apalis_cron::{CronStream, Schedule};
+use chrono::{DateTime, Local, Utc};
+use serde::{Deserialize, Serialize};
+use std::{str::FromStr, sync::Arc};
 
 use crate::AppData;
-
-// #[derive(Debug, Default)]
-// struct Reminder;
-
-// async fn trigger_job_checker(_job: Reminder, ctx: CronContext<Local>) {
-//     info!("Running cronjob for timestamp: {}", ctx.get_timestamp());
-//     // Do something
-//     println!("hello")
-// }
 
 #[derive(Clone)]
 pub struct CronjobData {
     pub message: String,
-    pub AppData: Arc<AppData>,
+    pub _app_data: Arc<AppData>,
 }
 impl CronjobData {
     fn execute(&self, _item: Reminder) {
@@ -56,7 +35,7 @@ pub fn build_cron_worker_monitor(shared_state: Arc<AppData>) -> Monitor {
     let schedule = Schedule::from_str("1 * * * * *").expect("Couldn't start the scheduler!");
     let cron_service_ext = CronjobData {
         message: "Hello world".to_string(),
-        AppData: shared_state.clone(),
+        _app_data: shared_state.clone(),
     };
 
     let monitor_instance = Monitor::new().register({

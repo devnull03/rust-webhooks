@@ -10,8 +10,7 @@ use tracing::{error, info};
 use crate::{
     helpers::{
         email, job_checker, notion, pdf::{create_sasi_timesheet, TimesheetData}
-    },
-    middlewares, AppData,
+    }, middlewares, models, AppData
 };
 
 pub fn build_router(shared_state: Arc<AppData>) -> Router {
@@ -42,7 +41,7 @@ async fn hello_world() -> &'static str {
 
 async fn notion_webhook(
     State(state): State<Arc<AppData>>,
-    Json(payload): Json<notion::structs::WebhookAutomationEvent>,
+    Json(payload): Json<models::notion::WebhookAutomationEvent>,
 ) -> String {
     info!("Received webhook from Notion");
 

@@ -6,7 +6,7 @@ use std::io::BufReader;
 use std::path::Path;
 use tracing::{error, info};
 
-use crate::helpers::notion::structs::Page;
+use crate::models::notion::Page;
 
 fn load_pdf<P: AsRef<Path>>(path: P) -> Result<Document, lopdf::Error> {
     let file = File::open(path)?;

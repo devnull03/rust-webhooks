@@ -1,3 +1,4 @@
+mod models;
 mod helpers;
 mod middlewares;
 mod scheduler;
