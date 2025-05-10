@@ -9,8 +9,7 @@ use tracing::{error, info};
 
 use crate::{
     helpers::{
-        email, notion,
-        pdf::{create_sasi_timesheet, TimesheetData},
+        email, job_checker, notion, pdf::{create_sasi_timesheet, TimesheetData}
     },
     middlewares, AppData,
 };
@@ -30,6 +29,7 @@ pub fn build_router(shared_state: Arc<AppData>) -> Router {
         // ))
         .route("/notion-test", get(notion_test))
         .route("/notion-db", get(notion_db))
+        .route("/test", get(test))
         .with_state(shared_state);
 
     info!("Server initialization complete");
@@ -175,4 +175,8 @@ async fn notion_db(State(state): State<Arc<AppData>>) -> String {
     notion::retrive_db(&state.notion_client, &state.timesheet_db_id)
         .await
         .unwrap()
+}
+
+async fn test() -> String {
+    job_checker::optum().await.unwrap()
 }
