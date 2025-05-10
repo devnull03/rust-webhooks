@@ -135,7 +135,6 @@ async fn notion_test(State(state): State<Arc<AppData>>) -> String {
                     );
 
                     let email_res = email::send_timesheet_email(&state.resend, timesheet).await;
-
                     match email_res {
                         Ok(res) => {
                             info!("Email sent successfully with ID: {}", res.id);
@@ -148,6 +147,8 @@ async fn notion_test(State(state): State<Arc<AppData>>) -> String {
                             error_msg
                         }
                     }
+
+                    // "Timesheet generated successfully".to_string()
                 }
                 Err(e) => {
                     error!("Failed to create timesheet PDF: {}", e);
