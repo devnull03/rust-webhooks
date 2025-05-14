@@ -4,7 +4,10 @@ use chrono::{DateTime, Local, Utc};
 use serde::{Deserialize, Serialize};
 use std::{str::FromStr, sync::Arc};
 
-use crate::{helpers::job_checker, AppData};
+use crate::{
+    helpers::{email, job_checker},
+    AppData,
+};
 
 #[derive(Clone)]
 pub struct CronjobData {
@@ -12,10 +15,19 @@ pub struct CronjobData {
     pub _app_data: Arc<AppData>,
 }
 impl CronjobData {
-    fn execute(&self, _item: Reminder) {
+    async fn execute(&self, _item: Reminder) {
         println!("{} from CronjobData::execute()!", &self.message);
+        let optum_jobs = job_checker::optum().await.unwrap();
 
-        // job_checker::optum();
+        if optum_jobs.len() > 0 {
+            println!("found jobs !!!");
+            let _email_res =
+                email::send_email(&self._app_data.resend, format!("{:?}", optum_jobs).as_str())
+                    .await
+                    .unwrap();
+        } else {
+            println!("no job :(");
+        }
     }
 }
 
@@ -30,11 +42,11 @@ impl From<DateTime<Utc>> for Reminder {
 pub async fn say_hello_world(job: Reminder, svc: Data<CronjobData>) {
     // println!("Hello world from send_reminder()!");
     // this executes CronjobData::execute()
-    svc.execute(job);
+    svc.execute(job).await;
 }
 
 pub fn build_cron_worker_monitor(shared_state: Arc<AppData>) -> Monitor {
-    let schedule = Schedule::from_str("1 * * * * *").expect("Couldn't start the scheduler!");
+    let schedule = Schedule::from_str("0 0 */2 * *").expect("Couldn't start the scheduler!");
     let cron_service_ext = CronjobData {
         message: "Hello world".to_string(),
         _app_data: shared_state.clone(),

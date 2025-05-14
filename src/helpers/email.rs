@@ -7,9 +7,9 @@ use tracing::{error, info};
 
 use crate::helpers::notion;
 
-pub async fn _send_email(
+pub async fn send_email(
     resend: &Resend,
-    email_content: &String,
+    email_content: &str,
 ) -> Result<CreateEmailResponse, resend_rs::Error> {
     let from = "devnull03 <dev@dvnl.work>";
     let to = ["arnav@dvnl.work"];
@@ -30,7 +30,7 @@ pub async fn _send_email(
 
 pub async fn _send_notion_webhook_init_email(
     resend: &Resend,
-    verification_token: &String,
+    verification_token: &str,
 ) -> Result<CreateEmailResponse, resend_rs::Error> {
     let from = "devnull03 <dev@dvnl.work>";
     let to = ["arnav@dvnl.work"];

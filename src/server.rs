@@ -12,7 +12,7 @@ use crate::{
         email, job_checker, notion,
         pdf::{create_sasi_timesheet, TimesheetData},
     },
-    middlewares, models, AppData,
+    middlewares, models::{self, job::optum::Job}, AppData,
 };
 
 pub fn build_router(shared_state: Arc<AppData>) -> Router {
@@ -30,7 +30,7 @@ pub fn build_router(shared_state: Arc<AppData>) -> Router {
         // ))
         .route("/notion-test", get(notion_test))
         .route("/notion-db", get(notion_db))
-        // .route("/test", get(test))
+        .route("/test", get(test))
         .with_state(shared_state);
 
     info!("Server initialization complete");
@@ -179,13 +179,13 @@ async fn notion_db(State(state): State<Arc<AppData>>) -> String {
         .unwrap()
 }
 
-async fn test() -> Vec<String> {
+async fn test() -> axum::Json<Vec<Job>> {
     let jobs = job_checker::optum().await.unwrap();
-    let mut res: Vec<String> = vec![];
+    // let mut res: Vec<String> = vec![];
 
-    for ele in jobs {
-        res.push(ele.to_string());
-    }
+    // for ele in jobs {
+    //     res.push(ele.to_string());
+    // }
 
-    res
+    axum::Json(jobs)
 }
