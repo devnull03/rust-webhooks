@@ -4,7 +4,7 @@ use chrono::{DateTime, Local, Utc};
 use serde::{Deserialize, Serialize};
 use std::{str::FromStr, sync::Arc};
 
-use crate::AppData;
+use crate::{helpers::job_checker, AppData};
 
 #[derive(Clone)]
 pub struct CronjobData {
@@ -14,6 +14,8 @@ pub struct CronjobData {
 impl CronjobData {
     fn execute(&self, _item: Reminder) {
         println!("{} from CronjobData::execute()!", &self.message);
+
+        // job_checker::optum();
     }
 }
 
@@ -26,7 +28,7 @@ impl From<DateTime<Utc>> for Reminder {
 }
 
 pub async fn say_hello_world(job: Reminder, svc: Data<CronjobData>) {
-    println!("Hello world from send_reminder()!");
+    // println!("Hello world from send_reminder()!");
     // this executes CronjobData::execute()
     svc.execute(job);
 }

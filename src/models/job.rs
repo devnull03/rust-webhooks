@@ -1,4 +1,6 @@
 pub mod optum {
+    use std::fmt::Display;
+
     use serde::{Deserialize, Serialize};
 
     #[derive(Debug, Serialize, Deserialize)]
@@ -9,7 +11,6 @@ pub mod optum {
         pub total_hits: u32,
         #[serde(rename = "queryResult")]
         pub query_result: Vec<Job>,
-
     }
 
     #[derive(Debug, Serialize, Deserialize)]
@@ -26,6 +27,19 @@ pub mod optum {
         // All other fields will be ignored by serde
         #[serde(flatten)]
         pub _other: serde_json::Value,
+    }
+
+    impl Display for Job {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+            write!(f, "Title: {}\nCompany: {}\nID: {}\nIndustry: {}\nLocation: {}\nLevel: {}\nInternal URL: {}\n",
+                   self.title,
+                   self.company_name,
+                   self.id,
+                   self.industry,
+                   self.primary_city,
+                   self.level,
+                   self.internal_url)
+        }
     }
 
     #[derive(Debug, Serialize, Deserialize)]
