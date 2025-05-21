@@ -49,7 +49,8 @@ pub async fn say_hello_world(job: Reminder, svc: Data<CronjobData>) {
 }
 
 pub fn build_cron_worker_monitor(shared_state: Arc<AppData>) -> Monitor {
-    let schedule = Schedule::from_str("0 0 */2 * *").expect("Couldn't start the scheduler!");
+    // Format: sec min hour day_of_month month day_of_week (year)
+    let schedule = Schedule::from_str("0 0 0 1-31/2 * *").expect("Couldn't start the scheduler!");
     let cron_service_ext = CronjobData {
         message: "Hello world".to_string(),
         _app_data: shared_state.clone(),
