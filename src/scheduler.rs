@@ -21,10 +21,13 @@ impl CronjobData {
 
         if optum_jobs.len() > 0 {
             println!("found jobs !!!");
-            let _email_res =
-                email::send_email(&self._app_data.resend, format!("{:?}", optum_jobs).as_str())
-                    .await
-                    .unwrap();
+            let _email_res = email::send_email(
+                &self._app_data.resend,
+                format!("{:?}", optum_jobs).as_str(),
+                Some("FOUND AN OPTUM JOB !!!"),
+            )
+            .await
+            .unwrap();
         } else {
             println!("no job :(");
         }

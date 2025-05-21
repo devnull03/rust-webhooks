@@ -10,10 +10,11 @@ use crate::helpers::notion;
 pub async fn send_email(
     resend: &Resend,
     email_content: &str,
+    subject_: Option<&str> 
 ) -> Result<CreateEmailResponse, resend_rs::Error> {
     let from = "devnull03 <dev@dvnl.work>";
     let to = ["arnav@dvnl.work"];
-    let subject = "Email sent from webhooks server";
+    let subject = subject_.unwrap_or("Email sent from webhooks server");
 
     info!("Preparing to send email with subject: {}", subject);
 

@@ -60,7 +60,7 @@ impl shuttle_runtime::Service for CustomService {
         };
 
         let monitor = async {
-            // self.monitor.run().await.unwrap();
+            self.monitor.run().await.unwrap();
         };
 
         let _res = tokio::join!(http, monitor);
