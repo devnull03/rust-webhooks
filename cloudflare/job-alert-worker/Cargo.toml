@@ -19,3 +19,4 @@ worker = { path = "../workers-rs/worker", features=['http'] }
 worker-macros = { path = "../workers-rs/worker-macros", features=['http'] }
 console_error_panic_hook = { version = "0.1.1" }
 http = "1.1"
+reqwest = "0.12.12"

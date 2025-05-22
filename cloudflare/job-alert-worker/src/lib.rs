@@ -1,16 +1,25 @@
 use worker::*;
+use reqwest;
 
 #[event(email)]
 async fn main(
-    _message: EmailMessage,
+    message: EmailMessage,
     _env: Env,
     _ctx: Context,
-) -> Result<HttpResponse> {
+) -> Result<()> {
     console_error_panic_hook::set_once();
-
     // Ok(http::Response::builder()
     //     .status(http::StatusCode::OK)
     //     .body(Body::empty())?)
 
+    message.forward("dev@dvnl.work".to_string(), None).await?;
+
+    let client = reqwest::Client::new();
+    let _res = client.post("https://hooks.dvnl.work/cloudflare-job-alert-reciever")
+        .body("hehe")
+        .send()
+        .await.unwrap();
+
+    Ok(())
 }
 

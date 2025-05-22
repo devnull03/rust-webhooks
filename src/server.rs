@@ -12,7 +12,9 @@ use crate::{
         email, job_checker, notion,
         pdf::{create_sasi_timesheet, TimesheetData},
     },
-    middlewares, models::{self, job::optum::Job}, AppData,
+    middlewares,
+    models::{self, job::optum::Job},
+    AppData,
 };
 
 pub fn build_router(shared_state: Arc<AppData>) -> Router {
@@ -24,13 +26,15 @@ pub fn build_router(shared_state: Arc<AppData>) -> Router {
             shared_state.clone(),
             middlewares::notion_automation_check,
         ))
-        // .layer(middleware::from_fn_with_state(
-        //     shared_state.clone(),
-        //     middlewares::notion_verification,
-        // ))
+        .route(
+            "/cloudflare-job-alert-reciever",
+            post(cloudflare_job_alert_reciever),
+        )
+        // test routes ----------------
         .route("/notion-test", get(notion_test))
         .route("/notion-db", get(notion_db))
         .route("/test", get(test))
+        // ----------------------------
         .with_state(shared_state);
 
     info!("Server initialization complete");
@@ -188,4 +192,12 @@ async fn test() -> axum::Json<Vec<Job>> {
     // }
 
     axum::Json(jobs)
+}
+
+async fn cloudflare_job_alert_reciever(State(state): State<Arc<AppData>>) {
+    let _res = email::send_email(
+        &state.resend,
+        "cloudflare job alert worker recieved a job",
+        Some("cloudflare job alert worker recieved a job"),
+    );
 }
