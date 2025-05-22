@@ -1,0 +1,4 @@
+[submodule "cloudflare/workers-rs"]
+	path = cloudflare/workers-rs
+	url = git@github.com:nudded/workers-rs
+	branch = feat-email-workers
