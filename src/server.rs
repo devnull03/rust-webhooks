@@ -194,20 +194,35 @@ async fn test() -> axum::Json<Vec<Job>> {
     axum::Json(jobs)
 }
 
-async fn cloudflare_job_alert_reciever(State(state): State<Arc<AppData>>) -> String {
-    info!("Received request on /cloudflare-job-alert-reciever");
+async fn cloudflare_job_alert_reciever(
+    State(state): State<Arc<AppData>>,
+    req: axum::extract::Request,
+) -> String {
+    info!("WEBHOOK RECEIVED: /cloudflare-job-alert-reciever");
+    
+    info!("Request headers:");
+    for (name, value) in req.headers().iter() {
+        info!("  {}: {:?}", name, value);
+    }
+    
+    // Extract and log the request body
+    let body_bytes = hyper::body::to_bytes(req.into_body())
+        .await
+        .unwrap_or_default();
+    let body_str = String::from_utf8_lossy(&body_bytes);
+    info!("Request body: {}", body_str);
+    
     match email::send_email(
         &state.resend,
-        "Cloudflare job alert worker received a job",
+        &format!("Cloudflare job alert webhook received. Body: {}", body_str),
         Some("Cloudflare Job Alert"),
     )
     .await
     {
-        Ok(_) => info!("Email sent successfully from cloudflare_job_alert_reciever"),
-        Err(e) => error!(
-            "Failed to send email from cloudflare_job_alert_reciever: {:?}",
-            e
-        ),
+        Ok(_) => info!("Email notification sent successfully"),
+        Err(e) => error!("Failed to send email notification: {:?}", e),
     }
-    "Thank you".to_string()
+    
+    info!("Webhook processing complete");
+    "Thank you for your webhook!".to_string()
 }
