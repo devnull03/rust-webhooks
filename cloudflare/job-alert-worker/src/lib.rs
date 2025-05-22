@@ -8,7 +8,6 @@ async fn main(
     _ctx: Context,
 ) -> Result<()> {
     console_error_panic_hook::set_once();
-
     message.forward("dev@dvnl.work".to_string(), None).await?;
 
     let client = reqwest::Client::new();
