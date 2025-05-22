@@ -8,9 +8,6 @@ async fn main(
     _ctx: Context,
 ) -> Result<()> {
     console_error_panic_hook::set_once();
-    // Ok(http::Response::builder()
-    //     .status(http::StatusCode::OK)
-    //     .body(Body::empty())?)
 
     message.forward("dev@dvnl.work".to_string(), None).await?;
 
