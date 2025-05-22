@@ -194,10 +194,20 @@ async fn test() -> axum::Json<Vec<Job>> {
     axum::Json(jobs)
 }
 
-async fn cloudflare_job_alert_reciever(State(state): State<Arc<AppData>>) {
-    let _res = email::send_email(
+async fn cloudflare_job_alert_reciever(State(state): State<Arc<AppData>>) -> String {
+    info!("Received request on /cloudflare-job-alert-reciever");
+    match email::send_email(
         &state.resend,
-        "cloudflare job alert worker recieved a job",
-        Some("cloudflare job alert worker recieved a job"),
-    );
+        "Cloudflare job alert worker received a job",
+        Some("Cloudflare Job Alert"),
+    )
+    .await
+    {
+        Ok(_) => info!("Email sent successfully from cloudflare_job_alert_reciever"),
+        Err(e) => error!(
+            "Failed to send email from cloudflare_job_alert_reciever: {:?}",
+            e
+        ),
+    }
+    "Thank you".to_string()
 }
