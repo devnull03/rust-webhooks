@@ -205,16 +205,9 @@ async fn cloudflare_job_alert_reciever(
         info!("  {}: {:?}", name, value);
     }
     
-    // Extract and log the request body
-    let body_bytes = hyper::body::to_bytes(req.into_body())
-        .await
-        .unwrap_or_default();
-    let body_str = String::from_utf8_lossy(&body_bytes);
-    info!("Request body: {}", body_str);
-    
     match email::send_email(
         &state.resend,
-        &format!("Cloudflare job alert webhook received. Body: {}", body_str),
+        "Cloudflare job alert webhook received.",
         Some("Cloudflare Job Alert"),
     )
     .await
