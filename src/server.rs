@@ -22,7 +22,7 @@ pub fn build_router(shared_state: Arc<AppData>) -> Router {
     let router = Router::new()
         .route("/", get(hello_world))
         .route("/notion-hook", post(notion_webhook))
-        .layer(middleware::from_fn_with_state(
+        .route_layer(middleware::from_fn_with_state(
             shared_state.clone(),
             middlewares::notion_automation_check,
         ))
