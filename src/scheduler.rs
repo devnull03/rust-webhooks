@@ -17,7 +17,7 @@ pub struct CronjobData {
 impl CronjobData {
     async fn execute(&self, _item: Reminder) {
         println!("{} from CronjobData::execute()!", &self.message);
-        let optum_jobs = job_checker::optum().await.unwrap();
+        let optum_jobs = job_checker::scheduler::optum().await.unwrap();
 
         if optum_jobs.len() > 0 {
             println!("found jobs !!!");

@@ -1,3 +1,11 @@
+#[derive(serde::Deserialize)]
+pub struct EmailWebhookData {
+    pub from: String,
+    pub to: String,
+    pub raw_content: String, // base64 encoded
+    pub size: f64,
+}
+
 pub mod optum {
     use std::fmt::Display;
 
