@@ -1,5 +1,6 @@
 use worker::*;
 use serde_json::json;
+use base64::{Engine as _, engine::general_purpose};
 
 #[event(email)]
 async fn main(message: EmailMessage, _env: Env, _ctx: Context) -> Result<()> {
@@ -14,7 +15,7 @@ async fn main(message: EmailMessage, _env: Env, _ctx: Context) -> Result<()> {
     let email_data = json!({
         "from": message.from_email(),
         "to": message.to_email(),
-        "raw_content": base64::encode(message.raw_bytes().await.unwrap()),
+        "raw_content": general_purpose::STANDARD.encode(message.raw_bytes().await.unwrap()),
         "size": message.raw_size()
     });
 
@@ -22,7 +23,7 @@ async fn main(message: EmailMessage, _env: Env, _ctx: Context) -> Result<()> {
     let _res = client
         .post(webhook_url)
         .header("content-type", "application/json")
-        .json(&email_data)
+        .body(email_data.to_string())
         .send()
         .await
         .unwrap();
