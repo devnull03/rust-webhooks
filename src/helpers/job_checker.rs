@@ -26,7 +26,7 @@ pub mod scheduler {
 
 pub mod server {
 
-    pub async fn alert_email_handler(from: String, email_content: String) -> Result<(), ()> {
+    pub async fn alert_email_handler(_from: &str, _email_content: &str) -> Result<(), ()> {
 
 
         

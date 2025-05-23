@@ -4,6 +4,7 @@ use axum::{
     routing::{get, post},
     Json, Router,
 };
+use base64::{engine::general_purpose::STANDARD, Engine as _};
 use std::sync::Arc;
 use tracing::{error, info};
 
@@ -13,7 +14,10 @@ use crate::{
         pdf::{create_sasi_timesheet, TimesheetData},
     },
     middlewares,
-    models::{self, job::optum::Job},
+    models::{
+        self,
+        job::{optum::Job, EmailWebhookData},
+    },
     AppData,
 };
 
@@ -184,7 +188,7 @@ async fn notion_db(State(state): State<Arc<AppData>>) -> String {
 }
 
 async fn test() -> axum::Json<Vec<Job>> {
-    let jobs = job_checker::optum().await.unwrap();
+    let jobs = job_checker::scheduler::optum().await.unwrap();
     // let mut res: Vec<String> = vec![];
 
     // for ele in jobs {
@@ -196,26 +200,36 @@ async fn test() -> axum::Json<Vec<Job>> {
 
 async fn cloudflare_job_alert_reciever(
     State(state): State<Arc<AppData>>,
-    req: axum::extract::Request,
+    Json(payload): Json<EmailWebhookData>,
 ) -> String {
     info!("WEBHOOK RECEIVED: /cloudflare-job-alert-reciever");
+    info!(
+        "From: {}, To: {}, Size: {}",
+        &payload.from, &payload.to, &payload.size
+    );
 
-    info!("Request headers:");
-    for (name, value) in req.headers().iter() {
-        info!("  {}: {:?}", name, value);
+    // Decode the email content
+    match STANDARD.decode(&payload.raw_content) {
+        Ok(email_bytes) => match String::from_utf8(email_bytes) {
+            Ok(email_content) => {
+                info!(
+                    "Email content: {}",
+                    email_content.chars().take(200).collect::<String>()
+                );
+                let subject = format!("Job alert processing from {}", payload.from);
+                email::send_email(&state.resend, &email_content, Some(subject.as_str()))
+                    .await
+                    .unwrap();
+
+                job_checker::server::alert_email_handler(&payload.from, &email_content)
+                    .await
+                    .unwrap();
+            }
+            Err(e) => error!("Failed to parse email as UTF-8: {:?}", e),
+        },
+        Err(e) => error!("Failed to decode base64 content: {:?}", e),
     }
 
-    match email::send_email(
-        &state.resend,
-        "Cloudflare job alert webhook received.",
-        Some("Cloudflare Job Alert"),
-    )
-    .await
-    {
-        Ok(_) => info!("Email notification sent successfully"),
-        Err(e) => error!("Failed to send email notification: {:?}", e),
-    }
-
-    info!("Webhook processing complete");
+    // Send notification...
     "Thank you for your webhook!".to_string()
 }

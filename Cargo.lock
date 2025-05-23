@@ -762,6 +762,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hashify"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f208758247e68e239acaa059e72e4ce1f30f2a4b6523f19c1b923d25b7e9cceb"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "headers"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1241,6 +1252,16 @@ dependencies = [
  "thiserror 2.0.12",
  "time",
  "weezl",
+]
+
+[[package]]
+name = "mail-parser"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a3e3a04056838aad1ad3f66ef4f7b72a3f33d8c3a8f2664b9363de5383bccaf1"
+dependencies = [
+ "encoding_rs",
+ "hashify",
 ]
 
 [[package]]
@@ -1856,6 +1877,7 @@ dependencies = [
  "apalis",
  "apalis-cron",
  "axum",
+ "base64 0.22.1",
  "bytes",
  "chrono",
  "hex",
@@ -1864,6 +1886,7 @@ dependencies = [
  "http-body-util",
  "hyper",
  "lopdf",
+ "mail-parser",
  "reqwest",
  "resend-rs",
  "serde",

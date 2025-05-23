@@ -28,3 +28,5 @@ apalis = { version = "0.7.1", features = ["tracing", "limit", "catch-panic", "re
 apalis-cron = "0.7.1"
 tower = { version = "0.5.2", features = ["load-shed"] }
 anyhow = "1.0.98"
+mail-parser = "0.11.0"
+base64 = "0.22.1"
