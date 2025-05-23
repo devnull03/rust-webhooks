@@ -8,14 +8,14 @@ async fn main(message: EmailMessage, _env: Env, _ctx: Context) -> Result<()> {
 
     message.forward("arnav@dvnl.work".to_string(), None).await?;
 
-    let webhook_url = "https://hooks.dvnl.work/cloudflare-job-alert-reciever/";
+    // let webhook_url = "https://hooks.dvnl.work/cloudflare-job-alert-reciever";
+    let webhook_url = "https://rust-webhooks-wxht.shuttle.app/cloudflare-job-alert-reciever";
 
     console_log!("Attempting to send webhook to: {}", webhook_url);
 
     let client = reqwest::Client::new();
     let _res = client
-        .post("https://hooks.dvnl.work/cloudflare-job-alert-reciever")
-        .body("hehe")
+        .post(webhook_url)
         .send()
         .await
         .unwrap();
