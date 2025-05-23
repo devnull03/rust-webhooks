@@ -20,12 +20,12 @@ use crate::{
 pub fn build_router(shared_state: Arc<AppData>) -> Router {
     info!("Setting up router");
     let router = Router::new()
-        .route("/", get(hello_world))
         .route("/notion-hook", post(notion_webhook))
         .route_layer(middleware::from_fn_with_state(
             shared_state.clone(),
             middlewares::notion_automation_check,
         ))
+        .route("/", get(hello_world))
         .route(
             "/cloudflare-job-alert-reciever",
             post(cloudflare_job_alert_reciever),
@@ -199,12 +199,12 @@ async fn cloudflare_job_alert_reciever(
     req: axum::extract::Request,
 ) -> String {
     info!("WEBHOOK RECEIVED: /cloudflare-job-alert-reciever");
-    
+
     info!("Request headers:");
     for (name, value) in req.headers().iter() {
         info!("  {}: {:?}", name, value);
     }
-    
+
     match email::send_email(
         &state.resend,
         "Cloudflare job alert webhook received.",
@@ -215,7 +215,7 @@ async fn cloudflare_job_alert_reciever(
         Ok(_) => info!("Email notification sent successfully"),
         Err(e) => error!("Failed to send email notification: {:?}", e),
     }
-    
+
     info!("Webhook processing complete");
     "Thank you for your webhook!".to_string()
 }
