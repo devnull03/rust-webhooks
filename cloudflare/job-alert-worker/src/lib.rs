@@ -6,7 +6,7 @@ async fn main(message: EmailMessage, _env: Env, _ctx: Context) -> Result<()> {
 
     console_log!("Received email, forwarding and sending webhook");
 
-    message.forward("arnav@dvnl.work".to_string(), None).await?;
+    // message.forward("arnav@dvnl.work".to_string(), None).await?;
 
     // let webhook_url = "https://hooks.dvnl.work/cloudflare-job-alert-reciever";
     let webhook_url = "https://rust-webhooks-wxht.shuttle.app/cloudflare-job-alert-reciever";
