@@ -25,6 +25,7 @@ impl CronjobData {
                 &self._app_data.resend,
                 format!("{:?}", optum_jobs).as_str(),
                 Some("FOUND AN OPTUM JOB !!!"),
+                None
             )
             .await
             .unwrap();

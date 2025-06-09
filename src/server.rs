@@ -5,6 +5,7 @@ use axum::{
     Json, Router,
 };
 use base64::{engine::general_purpose::STANDARD, Engine as _};
+use resend_rs::types::Attachment;
 use std::sync::Arc;
 use tracing::{error, info};
 
@@ -210,16 +211,25 @@ async fn cloudflare_job_alert_reciever(
 
     // Decode the email content
     match STANDARD.decode(&payload.raw_content) {
-        Ok(email_bytes) => match String::from_utf8(email_bytes) {
+        Ok(email_bytes) => match String::from_utf8(email_bytes.clone()) {
             Ok(email_content) => {
                 info!(
                     "Email content: {}",
                     email_content.chars().take(200).collect::<String>()
                 );
                 let subject = format!("Job alert processing from {}", payload.from);
-                email::send_email(&state.resend, &email_content, Some(subject.as_str()))
-                    .await
-                    .unwrap();
+                email::send_email(
+                    &state.resend,
+                    &email_content,
+                    Some(subject.as_str()),
+                    Some(
+                        Attachment::from_content(email_bytes)
+                            .with_content_type("txt")
+                            .with_filename("email_bytes"),
+                    ),
+                )
+                .await
+                .unwrap();
 
                 job_checker::server::alert_email_handler(&payload.from, &email_content)
                     .await

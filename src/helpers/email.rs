@@ -10,7 +10,8 @@ use crate::helpers::notion;
 pub async fn send_email(
     resend: &Resend,
     email_content: &str,
-    subject_: Option<&str> 
+    subject_: Option<&str>,
+    attachment: Option<Attachment>,
 ) -> Result<CreateEmailResponse, resend_rs::Error> {
     let from = "devnull03 <dev@dvnl.work>";
     let to = ["arnav@dvnl.work"];
@@ -18,7 +19,11 @@ pub async fn send_email(
 
     info!("Preparing to send email with subject: {}", subject);
 
-    let email = CreateEmailBaseOptions::new(from, to, subject).with_text(email_content);
+    let mut email = CreateEmailBaseOptions::new(from, to, subject).with_text(email_content);
+
+    if let Some(attachment) = attachment {
+        email = email.with_attachment(attachment);
+    }
 
     let result = resend.emails.send(email).await;
     match &result {
@@ -109,7 +114,10 @@ pub async fn send_error_info(
 
     let result = resend.emails.send(email).await;
     match &result {
-        Ok(response) => info!("Error info email sent successfully with ID: {}", response.id),
+        Ok(response) => info!(
+            "Error info email sent successfully with ID: {}",
+            response.id
+        ),
         Err(e) => error!("Failed to send error info email: {}", e),
     }
 
