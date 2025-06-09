@@ -6,7 +6,8 @@ pub mod scheduler {
 
     pub async fn optum() -> Result<Vec<optum::Job>, anyhow::Error> {
         info!("fetching optum jobs page api");
-        let url = "https://jobsapi-internal.m-cloud.io/api/job?callback=CWS.jobs.jobCallback&facet[]=multi_select1:Technology&facet[]=level:Student Internships&facet[]=ats_portalid:Smashfly&latitude=28.4594965&longitude=77.0266383&LocationRadius=25&Limit=10&Organization=2071&offset=1&useBooleanKeywordSearch=true";
+        // let url = "https://jobsapi-internal.m-cloud.io/api/job?callback=CWS.jobs.jobCallback&facet[]=multi_select1:Technology&facet[]=level:Student Internships&facet[]=ats_portalid:Smashfly&latitude=28.4594965&longitude=77.0266383&LocationRadius=25&Limit=10&Organization=2071&offset=1&useBooleanKeywordSearch=true";
+        let url = "https://jobsapi-internal.m-cloud.io/api/job?callback=CWS.jobs.jobCallback&facet[]=parent_category:Optum&facet[]=level:Student Internships&facet[]=ats_portalid:Smashfly&latitude=28.4594965&longitude=77.0266383&LocationRadius=50&Limit=10&Organization=2071&offset=1&useBooleanKeywordSearch=true";
         let body = reqwest::get(url).await?.text().await?;
 
         let clean_body = body
@@ -29,7 +30,7 @@ pub mod server {
     pub async fn alert_email_handler(_from: &str, _email_content: &str) -> Result<(), ()> {
 
 
-        
+ 
         Ok(())
     }
 }

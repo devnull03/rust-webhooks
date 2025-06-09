@@ -217,6 +217,8 @@ async fn cloudflare_job_alert_reciever(
                     "Email content: {}",
                     email_content.chars().take(200).collect::<String>()
                 );
+
+
                 let subject = format!("Job alert processing from {}", payload.from);
                 email::send_email(
                     &state.resend,
