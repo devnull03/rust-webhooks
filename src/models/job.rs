@@ -84,3 +84,18 @@ pub mod optum {
 }
 
 
+#[derive(PartialEq, Eq, Hash, Debug)]
+pub enum JobAlertSource {
+    Linkedin,
+    Glassdoor,
+}
+
+#[derive(PartialEq, Eq, Hash, Debug)]
+pub struct ParsedJob {
+    pub source: JobAlertSource,
+    pub job_id: String,
+    pub title: String,
+    pub location: String,
+    pub link: String,
+}
+

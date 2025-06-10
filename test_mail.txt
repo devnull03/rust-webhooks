@@ -1,0 +1,1707 @@
+Received: from mail-pj1-x1029.google.com (2607:f8b0:4864:20::1029)
+        by cloudflare-email.net (unknown) id XmZzqP7ccCYf
+        for <job-alert-catcher@dvnl.work>; Mon, 09 Jun 2025 05:29:02 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-email.net; cv=none;
+	b=XTf1XWmzZnamEaj/MN10xmrvYanLMefcsxOnH8tMLAUDlnzvkmO/vuU+/WQNL0xByxPUfT7qa
+	VYDawO34nOCJjN91MPt8UBeb1IMTsQlSh50jIO2dCJh6v4EtUUnZBOK4ofbrpakZx+t/v3W9pAA
+	/Wxhp+/i6U1QO35UnXiof/K5eEyHtef1MmjImqSV/LUr1xua8uKkOERWk+9dSSz5ybLCnq4Cln9
+	+grDMJv4gq055jvgOz0HX4iSK3vyS9ibWGsoXMqVX8VQJvI3anJ8ymiCf2gSET7fhqe0BX6ff5f
+	POyLMOGbN+AQcQgyPwCqVu63+9P8+VhyAROTIFPsI3nQ==;
+ARC-Message-Signature: i=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-email.net; c=relaxed/relaxed;
+	h=To:Subject:Date:In-Reply-To:From:reply-to:cc:resent-date:resent-from
+	:resent-to:resent-cc:references:list-id:list-help:list-unsubscribe
+	:list-subscribe:list-post:list-owner:list-archive; t=1749446946;
+	x=1750051746; bh=XXSp14N/pAgcMZjjA+S+ucaNOLIpBYye07FXw0FAXlg=; b=YDX9gKkgEr
+	Xubay0ZRu8VywSwvOpAjKJIQcAFQiTHpOIpw4Y7pzdoKe/WFDatg7mUcRPLtxLAJMzqbe++IF0Q
+	45NmhVOs9OtSDEeReMOGzWptDIcdP6hpwMRHi2qFHMQII0TgN16yjch0UgrRuj/x6MU30nLjIGL
+	u1KYDcRh+qjBJlvaHw4A0JWN/jKcCD7qf8xzpZaa7+qZtuOuYMG+/tSDSq6EdCzGEK3EiTYEgKc
+	12ZE7yk519lpcC8lsMgIWBpbXN7nUtPoM3V+7atZ+6ODzYcvvQV0Mlu6FwralD8wRT8ZHqRhAj8
+	mfygp8YP6m74WZLQnR/wCtKjGhrTbvuw==;
+ARC-Authentication-Results: i=1; mx.cloudflare.net;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=TLnlSIxK;
+	dmarc=pass header.from=gmail.com policy.dmarc=none;
+	spf=none (mx.cloudflare.net: no SPF records found for postmaster@mail-pj1-x1029.google.com) smtp.helo=mail-pj1-x1029.google.com;
+	spf=pass (mx.cloudflare.net: domain of arnav2003mehta@gmail.com designates 2607:f8b0:4864:20::1029 as permitted sender) smtp.mailfrom=arnav2003mehta@gmail.com;
+	arc=none smtp.remote-ip=2607:f8b0:4864:20::1029
+Received-SPF: pass (mx.cloudflare.net: domain of arnav2003mehta@gmail.com designates 2607:f8b0:4864:20::1029 as permitted sender)
+	receiver=mx.cloudflare.net; client-ip=2607:f8b0:4864:20::1029; envelope-from="arnav2003mehta@gmail.com"; helo=mail-pj1-x1029.google.com;
+Authentication-Results: mx.cloudflare.net;
+	dkim=pass header.d=gmail.com header.s=20230601 header.b=TLnlSIxK;
+	dmarc=pass header.from=gmail.com policy.dmarc=none;
+	spf=none (mx.cloudflare.net: no SPF records found for postmaster@mail-pj1-x1029.google.com) smtp.helo=mail-pj1-x1029.google.com;
+	spf=pass (mx.cloudflare.net: domain of arnav2003mehta@gmail.com designates 2607:f8b0:4864:20::1029 as permitted sender) smtp.mailfrom=arnav2003mehta@gmail.com;
+	arc=none smtp.remote-ip=2607:f8b0:4864:20::1029
+X-CF-SpamH-Score: 0
+Received: by mail-pj1-x1029.google.com with SMTP id 98e67ed59e1d1-306b6ae4fb2so3447895a91.3
+        for <job-alert-catcher@dvnl.work>; Sun, 08 Jun 2025 22:29:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20230601; t=1749446942; x=1750051742; darn=dvnl.work;
+        h=to:subject:message-id:date:mime-version:in-reply-to:sender:from
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=XXSp14N/pAgcMZjjA+S+ucaNOLIpBYye07FXw0FAXlg=;
+        b=TLnlSIxKKNF2r3Kh0gQ4rIW71qdfn6acb/CilBDv2SKWp6L0Ktttp1BJ+zEdiuEYa9
+         +fddqX6iW1a/h76ionr/qVXvUfas8+jDJfhrS4fKbUM8AnXuuhhp5u1Y1ClOm8UDUmTL
+         dTtSG6zVwYc4KXlezR9oZAO60b67qua/VKhXdr+rEVs3+uHGfFmoeaVz1h9bzBk6FhNM
+         AMFA7GVupJE3bzYD9h7qMCfb7fF6AySsmyrcUcEEJ4Hy7O8ck/HlbCiJJP/laxhEWsGX
+         QOh2OQRMW9y3bnbvYrtNWL0JJXf7CrnMinBbE2nev2SQy3I5UYg0VIBMupEFXXyrtC7U
+         UMuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20230601; t=1749446942; x=1750051742;
+        h=to:subject:message-id:date:mime-version:in-reply-to:sender:from
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=XXSp14N/pAgcMZjjA+S+ucaNOLIpBYye07FXw0FAXlg=;
+        b=WdAc/RiB3tdW2gW1CeN7UUY0lz6J1Rj+gmt7yTWSRBZ8X6g7DATM0F9WuKkkG/FcDj
+         fenwh2joIuMt7X2RWgpwRIF6gpPiaLtt5XosLP7CINiHKJvFdv8rUcngLpxqOuT7Ovjg
+         rG/PYOdYwHfqrGTbU6uQpp+iIC2HidooVAt2bt35U1GgHRajKafRPBwiC8BlFtCJ2Ke9
+         nNXnvqlZyk4WhaQSCNuQTh4wYStdPz4d/gbORklzcLoRb96fpFmxXfMLJaavvZGfq4/f
+         D9R4gV67btCVZw54wt+jslGybeYujvL4rynWr4izjlajpTMu+x+R1KcitIaQKgooLJU8
+         IWjA==
+X-Gm-Message-State: AOJu0YzaaLMU+/5iqS+csGWdsPfNQF8JNF0usZLmNAJgoEVvKUpja/2b
+	0rvqrlWo1shZbChGuwUOB5MBvNHO8Qh4FOObqGxUYieaNbm4ZaatExj/r5jeE6Mn7uogBfzfgsW
+	CFHeI/EEUG3/tfL5+ywI64ZD23OLxQbFLGQ==
+X-Gm-Gg: ASbGncumFzKN558BszS+SF9IpN18HpR03WsZlCkUeYBY+8QxOP/tkogDnyjn29Jo8mG
+	Y73TjMbX+T5fujR36t/Sk4wG1zD5qV2bt0j6ns0FhQjRY63jEKTHPz1nVj+yJmLLW/Q8Yzr2yAx
+	uISKObu8u+e7p65/8SsppQZjtUKx8/gWo=
+X-Google-Smtp-Source: AGHT+IHL+5uIgE/nK3OWrdtB4LFbMSyMzZ+6+o4GZRIybh1Ud2a+Q8mjsAoxednflPe01sRGWsxQb7d4VUqdk5gNciY=
+X-Received: by 2002:a17:90b:3891:b0:312:26d9:d5b4 with SMTP id
+ 98e67ed59e1d1-3134740b55cmr18552975a91.17.1749446942119; Sun, 08 Jun 2025
+ 22:29:02 -0700 (PDT)
+Received: from 587811786478 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Jun 2025 01:29:01 -0400
+Received: from 587811786478 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 9 Jun 2025 01:29:01 -0400
+X-Notion-Message-ID: 17cf1f20-0746-40a5-953d-35ecee56e065
+From: Arnav Mehta <arnav2003mehta@gmail.com>
+Sender: Arnav Mehta <arnav2003mehta@gmail.com>
+In-Reply-To: <617533836.6355122.1749226771116@ltx1-app156756.prod.linkedin.com>
+MIME-Version: 1.0
+Date: Mon, 9 Jun 2025 01:29:01 -0400
+X-Google-Sender-Auth: DL9Bi9u-UKOUVC-LbU6OcHz8Zm0
+X-Gm-Features: AX0GCFvLiKpKlB1Z_PG_LDMu58BbGaFGt1XmTva1XQPu24mUWNBX1EQu1AmQT5k
+Message-ID: <CALFyqH5y3aMqYE2U6F+kFh3oOOFFBtGTu9V2M-FyQ+SOtMf2fA@mail.gmail.com>
+Subject: =?UTF-8?B?RldEOiA4IG5ldyBqb2JzIGZvciDigJxzb2Z0d2FyZSBjb29w4oCd?=
+To: job-alert-catcher@dvnl.work
+Content-Type: multipart/alternative; boundary="00000000000089d97d06371cdb80"
+
+--00000000000089d97d06371cdb80
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+=E2=80=8B
+
+=E2=80=8B
+
+-------- Forwarded message --------
+
+Subject: 8 new jobs for =E2=80=9Csoftware coop=E2=80=9D
+
+From: LinkedIn Job Alerts <jobalerts-noreply@linkedin.com>
+
+Date: Fri, 06 Jun 2025 16:19:31 GMT
+
+To: Arnav Mehta <arnav2003mehta@gmail.com>
+
+
+=E2=80=8B
+
+View jobs in Canada
+
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=
+=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=8F =
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=
+=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=8F =
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=
+=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=8F =
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=
+=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=8F =
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=
+=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F  =CD=8F =
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+=CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F =CD=8F
+
+[image: LinkedIn]
+<https://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_j=
+ob_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooF=
+tA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-header-0-hom=
+e_glimmer_static_badging_with_count&trkEmail=3Deml-email_job_alert_digest_0=
+1-header-0-home_glimmer_static_badging_with_count-null-cph4qf~mbkyzlf2~xs-n=
+ull-null&eid=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNG=
+VkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZ=
+mU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Arnav Mehta]
+<https://ca.linkedin.com/comm/in/devnull03?lipi=3Durn%3Ali%3Apage%3Aemail_e=
+mail_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-un=
+OnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-header=
+-0-profile_glimmer&trkEmail=3Deml-email_job_alert_digest_01-header-0-profil=
+e_glimmer-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&otpTok=
+en=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZT=
+AzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljO=
+Dc5MjcxNGRiYSwxLDE%3D>
+Your job alert for *software coop*
+<https://www.linkedin.com/comm/jobs/search?f_TPR=C2=A1749068663-&savedSearc=
+hId
+057376436&alertAction=3Dviewjobs&origin=3DJOB_ALERT_EMAIL&lipi=3Durn%3Ali%3=
+Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&mi=
+dToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_d=
+igest_01-primary_job_list-0-header_15057376436&trkEmail=3Deml-email_job_ale=
+rt_digest_01-primary_job_list-0-header_15057376436-null-cph4qf~mbkyzlf2~xs-=
+null-null&eid=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwN=
+GVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNj=
+ZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+8 new jobs in Canada match your preferences.
+
+[image: Jerry]
+<https://www.linkedin.com/comm/jobs/view/4242263271/?trackingId=C3=BFZH%2B2=
+smPXBhndpLPtjKKw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_150=
+57376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-compan=
+y_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-=
+xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4O=
+DYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3=
+ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Engineer I (Toronto)*
+<https://www.linkedin.com/comm/jobs/view/4242263271/?trackingId=C3=BFZH%2B2=
+smPXBhndpLPtjKKw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_150=
+57376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcar=
+d_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-=
+xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4O=
+DYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3=
+ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Jerry =C2=B7 Toronto, ON (Remote)
+<https://www.linkedin.com/comm/jobs/view/4242263271/?trackingId=C3=BFZH%2B2=
+smPXBhndpLPtjKKw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_pos=
+ting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs=
+&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODY=
+xNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3OD=
+gzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+=E2=80=8B
+
+[image: Jerry]
+<https://www.linkedin.com/comm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6=
+ut2z3RI4qtU8gfw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-company=
+_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-x=
+s&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4OD=
+YxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3O=
+DgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Engineer*
+<https://www.linkedin.com/comm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6=
+ut2z3RI4qtU8gfw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard=
+_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-x=
+s&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4OD=
+YxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3O=
+DgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Jerry =C2=B7 Toronto, ON (Remote)
+<https://www.linkedin.com/comm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6=
+ut2z3RI4qtU8gfw%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057=
+376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_post=
+ing_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+=E2=80=8B
+
+[image: Hitachi Rail]
+<https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR=
+3RaisVMaar%2FKKg%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_150=
+57376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-compan=
+y_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-=
+xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4O=
+DYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3=
+ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Analyst Intern (C++, C#, Java - 8 or 12months)*
+<https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR=
+3RaisVMaar%2FKKg%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_150=
+57376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcar=
+d_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-=
+xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4O=
+DYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3=
+ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Hitachi Rail =C2=B7 Toronto, ON (Hybrid)
+<https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR=
+3RaisVMaar%2FKKg%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_pos=
+ting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs=
+&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODY=
+xNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3OD=
+gzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+<https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR=
+3RaisVMaar%2FKKg%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_pos=
+ting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs=
+&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODY=
+xNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3OD=
+gzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Actively recruiting
+<https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR=
+3RaisVMaar%2FKKg%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b.=
+..f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5=
+O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PS=
+rM1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_pos=
+ting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs=
+&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODY=
+xNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3OD=
+gzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Hitachi Rail]
+<https://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEU=
+tCwPf4POr6IGr6w%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-company=
+_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-x=
+s&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4OD=
+YxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3O=
+DgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Analyst Intern (C++, C#, Java - 8 or 12months)*
+<https://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEU=
+tCwPf4POr6IGr6w%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_1505=
+7376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard=
+_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-x=
+s&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4OD=
+YxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3O=
+DgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Hitachi Rail =C2=B7 Toronto, ON (Hybrid)
+<https://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEU=
+tCwPf4POr6IGr6w%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057=
+376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_post=
+ing_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Jon Steele]
+<https://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEU=
+tCwPf4POr6IGr6w%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057=
+376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_post=
+ing_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+1 connection
+<https://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEU=
+tCwPf4POr6IGr6w%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b..=
+.f243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O=
+7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSr=
+M1&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057=
+376436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_post=
+ing_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Lumentum]
+<https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1Ohj=
+doN8b1ocSqgug%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_150573=
+76436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-company_l=
+ogo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Automation Test Engineer (Co-op Student/Intern)*
+<https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1Ohj=
+doN8b1ocSqgug%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_150573=
+76436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_b=
+ody_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Lumentum =C2=B7 Ottawa, ON
+<https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1Ohj=
+doN8b1ocSqgug%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+<https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1Ohj=
+doN8b1ocSqgug%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+Actively recruiting
+<https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1Ohj=
+doN8b1ocSqgug%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Siemens Healthineers]
+<https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7=
+TL3NFipFA5YxA%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_150573=
+76436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-company_l=
+ogo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+*Software Quality Assurance Specialist Co-op*
+<https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7=
+TL3NFipFA5YxA%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_150573=
+76436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_b=
+ody_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&=
+otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYx=
+NzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODg=
+zYTljODc5MjcxNGRiYSwxLDE%3D>
+
+Siemens Healthineers =C2=B7 Ottawa, ON (On-site)
+<https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7=
+TL3NFipFA5YxA%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+<https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7=
+TL3NFipFA5YxA%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+Actively recruiting
+<https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7=
+TL3NFipFA5YxA%3D%3D&refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1=
+&trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737=
+6436&trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_postin=
+g_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+*See all jobs*
+<https://www.linkedin.com/comm/jobs/search?f_TPR=C2=A1749068663-&savedSearc=
+hId
+057376436&alertAction=3Dviewjobs&origin=3DJOB_ALERT_EMAIL&lipi=3Durn%3Ali%3=
+Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&mi=
+dToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_d=
+igest_01-primary_job_list-0-see_all_jobs_button_15057376436&trkEmail=3Deml-=
+email_job_alert_digest_01-primary_job_list-0-see_all_jobs_button_1505737643=
+6-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTU=
+wMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0Nz=
+ViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxN=
+GRiYSwxLDE%3D>
+------------------------------
+
+[image: Premium icon]
+<https://ca.linkedin.com/comm/in/devnull03?lipi=3Durn%3Ali%3Apage%3Aemail_e=
+mail_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-un=
+OnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-job~al=
+ert-0-premium~upsell&trkEmail=3Deml-email_job_alert_digest_01-job~alert-0-p=
+remium~upsell-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&ot=
+pToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNz=
+ZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzY=
+TljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: Arnav Mehta]
+
+Job search smarter with Premium
+
+*Try 1 month for $0*
+<https://www.linkedin.com/comm/premium/products/?upsellOrderOrigin=3Demail_=
+job_alert_digest_taj_upsell&utype=3Djob&lipi=3Durn%3Ali%3Apage%3Aemail_emai=
+l_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnm=
+ooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-null-0-nu=
+ll&trkEmail=3Deml-email_job_alert_digest_01-null-0-null-null-cph4qf~mbkyzlf=
+2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJk=
+MjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTB=
+lNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+*Get the new LinkedIn desktop app*
+
+[image: Get it from Microsoft]
+<https://apps.microsoft.com/store/detail/9WZDNCRFJ4Q7?launch=3Dtrue&cid=3Dl=
+inkedin_email_upsell&mode=3Dfull>
+*Also available on mobile*
+
+[image: Download on the App Store]
+<https://itunes.apple.com/us/app/linkedin/id288429040?pt
+746&ct=3Dst_appsite_flagship&mt=3D8>[image: Get it on Google Play]
+<https://play.google.com/store/apps/details?id=3Dcom.linkedin.android&refer=
+rer=3Dst_appsite_flagship>
+------------------------------
+
+This email was intended for Arnav Mehta (Research Assistant and Web
+Developer @ UFV | Computer Science @ UFV)
+
+*Learn why we included this.*
+<https://www.linkedin.com/help/linkedin/answer/4788?lang=3Den&lipi=3Durn%3A=
+li%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3=
+D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_ale=
+rt_digest_01-SecurityHelp-0-footerglimmer&trkEmail=3Deml-email_job_alert_di=
+gest_01-SecurityHelp-0-footerglimmer-null-cph4qf~mbkyzlf2~xs-null-null&eid=
+=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1Yj=
+Y4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4Y=
+jM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+You are receiving Job Alert emails.
+
+Manage job alerts
+<https://www.linkedin.com/comm/jobs/alerts?lipi=3Durn%3Ali%3Apage%3Aemail_e=
+mail_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-un=
+OnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-footer=
+-0-manage_alerts_button&trkEmail=3Deml-email_job_alert_digest_01-footer-0-m=
+anage_alerts_button-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2=
+-xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4=
+ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE=
+3ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+ =C2=B7
+*Unsubscribe*
+<https://www.linkedin.com/job-alert-email-unsubscribe?savedSearchId
+057376436&lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd=
+%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1&=
+ek=3Demail_job_alert_digest_01&e=3Dcph4qf-mbkyzlf2-xs&eid=3Dcph4qf-mbkyzlf2=
+-xs&m=3Dunsubscribe&ts=3DfooterGlimmer&li=3D0&t=3Dplh>
+  =C2=B7   *Help*
+<https://www.linkedin.com/help/linkedin/answer/67?lang=3Den&lipi=3Durn%3Ali=
+%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&=
+midToken=3DAQH-unOnmooFtA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert=
+_digest_01-help-0-footerglimmer&trkEmail=3Deml-email_job_alert_digest_01-he=
+lp-0-footerglimmer-null-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-=
+xs&otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4O=
+DYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3=
+ODgzYTljODc5MjcxNGRiYSwxLDE%3D>
+
+[image: LinkedIn]
+<https://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_j=
+ob_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&midToken=3DAQH-unOnmooF=
+tA&midSig=3D0nggyTZ07PSrM1&trk=3Deml-email_job_alert_digest_01-footer-0-log=
+oGlimmer&trkEmail=3Deml-email_job_alert_digest_01-footer-0-logoGlimmer-null=
+-cph4qf~mbkyzlf2~xs-null-null&eid=3Dcph4qf-mbkyzlf2-xs&otpToken=3DMTUwMzE2Z=
+TMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRm=
+NWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSw=
+xLDE%3D>
+
+=C2=A9 2025 LinkedIn Corporation, 1=E2=80=8C000 West Maude Avenue, Sunnyval=
+e, CA 94085.
+LinkedIn and the LinkedIn logo are registered trademarks of LinkedIn.
+
+--00000000000089d97d06371cdb80
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+    <head>
+     =20
+ =20
+  <style>
+    code {
+      font-family: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation =
+Mono", Courier, monospace;
+    }
+
+    p {
+      min-height: 19.5px; /* Set a minimum height so empty p tags still tak=
+e up vertical space; matches gmail empty line height */
+      border-radius: 0px;
+    }
+
+    ol.custom-editor-ordered-list-class {
+      padding-inline-start: 0px;
+      margin: 1px 0px;
+      padding-inline-start: 24px;
+      min-height: calc(1.5em + 6px);
+    }
+
+    ul.custom-editor-bullet-list-class {
+      padding-inline-start: 0px;
+      margin: 1px 0px;
+      padding-inline-start: 24px;
+      min-height: calc(1.5em + 6px);
+    }
+
+    pre.custom-editor-code-block-class {
+      flex-shrink: 1;
+      text-align: left;
+      font-family: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation =
+Mono", Courier, monospace;
+      font-size: 13.6px;
+      tab-size: 2;
+      padding: 34px 16px 32px 32px;
+      min-height: 1em;
+      white-space: pre;
+      border-radius: 4px;
+      text-align: left;
+      position: relative;
+      background: rgba(135,131,120,.15);
+      min-width: 0px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    hr.custom-editor-divider-class {
+      border: none;
+      border-top: 1px solid rgba(135,131,120,.15);
+      width: 100%;
+    }
+
+    blockquote {
+      border-left: 3px solid currentcolor;
+      padding-inline-start: 14px;
+      margin: 0px;
+      margin-top: 4px;
+      font-size: 1em;
+      padding-right: 2px;
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 14px;
+    }
+
+    blockquote.light {
+      border-left-color: rgba(55, 53, 47, 0.16);
+    }
+
+    blockquote.dark {
+      border-left-color: rgba(255, 255, 255, 0.13);
+    }
+
+    aside {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      border-radius: 4px;
+      background: rgba(135,131,120,.15);
+      padding: 16px 16px 16px 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .callout-emoji {
+      user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      width: 24px;
+      font-size: 21.6px;
+      box-sizing: border-box;
+      margin-top: -3px;
+      border-radius: 0.25em;
+      flex-shrink: 0;
+      flex-grow: 0;
+    }
+
+    .callout-emoji > img {
+      height: 18px;
+      width: 18px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .callout-content {
+      margin-left: 8px;
+      margin-top: auto;
+      display: table;
+      width: 100%;
+    }
+
+    .custom-editor-task-list-class {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .custom-editor-task-item-class {
+      display: flex;
+      align-items: center;
+    }
+
+    .custom-editor-task-item-class > label {
+      margin-right: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .custom-editor-task-item-class > label > input[type=3D"checkbox"] {
+      margin-right: 0.5rem;
+    }
+
+    .custom-editor-task-item-checked-class > * {
+      text-decoration: line-through rgba(55, 53, 47, 0.42);
+      color: rgba(55, 53, 47, 0.65);
+    }
+
+    .custom-editor-rendered-mention {
+      opacity: 0.6;
+      color: unset;
+    }
+    .custom-editor-rendered-mention > a {
+      color: unset;
+    }
+
+    .custom-editor-rendered-mention-page {
+      font-weight: 500;
+      max-width: 200px;
+    }
+    .custom-editor-rendered-mention-page > a {
+      color: unset;
+    }
+    .custom-editor-rendered-mention-page-link {
+      border-bottom: 0.05em solid rgba(95, 94, 91, 1);
+      text-decoration: none !important;
+    }
+
+    pre {
+      flex-shrink: 1;
+      text-align: left;
+      font-family: SFMono-Regular, Menlo, Consolas, "PT Mono", "Liberation =
+Mono", Courier, monospace;
+      font-size: 13.6px;
+      tab-size: 2;
+      padding: 34px 16px 32px 32px;
+      min-height: 1em;
+      white-space: pre;
+      border-radius: 4px;
+      text-align: left;
+      position: relative;
+      background: rgb(247, 246, 243);
+      min-width: 0px;
+      width: 100%;
+      box-sizing: border-box;
+      text-wrap: wrap;
+    }
+
+    a.custom-editor-link-class {
+      color: rgba(120, 119, 116, 1);
+      cursor: pointer;
+      text-decoration-thickness: 0.05em;
+      text-underline-offset: 3px;
+    }
+  </style>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.3;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe=
+ UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", =
+"Segoe UI Symbol";
+    }
+    p {
+      margin: 0px 0px 0px 0px !important;
+    }
+  </style>
+
+    </head>
+    <body>
+      <p dir=3D"auto">=E2=80=8B</p><p dir=3D"auto">=E2=80=8B</p><div class=
+=3D"forwarded-content"><p dir=3D"auto">-------- Forwarded message --------<=
+/p><p dir=3D"auto">Subject: 8 new jobs for =E2=80=9Csoftware coop=E2=80=9D<=
+/p><p dir=3D"auto">From: LinkedIn Job Alerts &lt;<a href=3D"mailto:jobalert=
+s-noreply@linkedin.com">jobalerts-noreply@linkedin.com</a>&gt;</p><p dir=3D=
+"auto">Date: Fri, 06 Jun 2025 16:19:31 GMT</p><p dir=3D"auto">To: Arnav Meh=
+ta &lt;<a href=3D"mailto:arnav2003mehta@gmail.com">arnav2003mehta@gmail.com=
+</a>&gt;</p><p dir=3D"auto"><br>=E2=80=8B</p><div dir=3D"auto" class=3D"h-0=
+ opacity-0 text-transparent invisible overflow-hidden w-0 max-h-[0]" style=
+=3D"height:0px;max-height:0px;width:0px;overflow:hidden;opacity:0"><p dir=
+=3D"auto">View jobs in Canada</p></div><div dir=3D"auto" class=3D"h-0 opaci=
+ty-0 text-transparent invisible overflow-hidden w-0 max-h-[0]" style=3D"hei=
+ght:0px;max-height:0px;width:0px;overflow:hidden;opacity:0"><p dir=3D"auto"=
+>=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=
+=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =
+=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0 =CD=8F=C2=A0=CD=8F=C2=A0=CD=
+=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=C2=A0=CD=8F=
+=C2=A0=CD=8F=C2=A0</p></div><table align=3D"center" border=3D"0" class=3D"m=
+ercado-container w-[512px] max-w-[512px] mx-auto my-0 p-0" cellpadding=3D"0=
+" cellspacing=3D"0" valign=3D"top" width=3D"512" style=3D"margin:0px auto;w=
+idth:512px;max-width:512px;padding:0px"><colgroup><col style=3D"min-width:2=
+5px"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D=
+"0" class=3D"bg-color-background-container" cellpadding=3D"0" cellspacing=
+=3D"0" valign=3D"top" width=3D"100%" style=3D"background-color:rgb(255,255,=
+255)"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td cla=
+ss=3D"text-center p-3" colspan=3D"1" rowspan=3D"1" style=3D"padding:24px;te=
+xt-align:center"><table border=3D"0" class=3D"min-w-full" cellpadding=3D"0"=
+ cellspacing=3D"0" valign=3D"top" width=3D"100%" style=3D"min-width:100%"><=
+colgroup><col style=3D"min-width:25px"><col style=3D"min-width:25px"></colg=
+roup><tbody><tr><td align=3D"left" colspan=3D"1" rowspan=3D"1" valign=3D"mi=
+ddle"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofol=
+low" class=3D"custom-editor-link-class w-[84px]" href=3D"https://www.linked=
+in.com/comm/feed/?lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%=
+3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=
+=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-header-0-home_gli=
+mmer_static_badging_with_count&amp;trkEmail=3Deml-email_job_alert_digest_01=
+-header-0-home_glimmer_static_badging_with_count-null-cph4qf~mbkyzlf2~xs-nu=
+ll-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJ=
+kMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMT=
+BlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=
+=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none;width:8=
+4px"><img alt=3D"LinkedIn" title=3D"image" style=3D"outline: none; text-dec=
+oration: none; height: 37px; width: 101px;" src=3D"https://static.licdn.com=
+/aero-v1/sc/h/2huuis1k3beio0p1e40la2gcs" height=3D"37" width=3D"101"></a></=
+p></td><td align=3D"right" colspan=3D"1" rowspan=3D"1" valign=3D"middle"><t=
+able border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=
+=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td=
+ align=3D"right" class=3D"w-[32px]" colspan=3D"1" rowspan=3D"1" valign=3D"m=
+iddle" width=3D"32" style=3D"width:32px"><p dir=3D"auto"><a target=3D"_blan=
+k" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-class" =
+href=3D"https://ca.linkedin.com/comm/in/devnull03?lipi=3Durn%3Ali%3Apage%3A=
+email_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midTok=
+en=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_ale=
+rt_digest_01-header-0-profile_glimmer&amp;trkEmail=3Deml-email_job_alert_di=
+gest_01-header-0-profile_glimmer-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=
+=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2=
+U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZ=
+jQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(1=
+0,102,194);display:inline-block;text-decoration:none"><img alt=3D"Arnav Meh=
+ta" title=3D"image" style=3D"outline: none; text-decoration: none; height: =
+32px; width: 32px; border-radius: 100%;" src=3D"https://media.licdn.com/dms=
+/image/v2/D5603AQFqzicluTQlig/profile-displayphoto-shrink_200_200/B56ZRsN64=
+JGoAY-/0/1736982376194?e!47483647&amp;v=C2=BEta&amp;t=3DQVq0rQnVTXN6-NSi-_5=
+fthIx0e6woJKwK1S-BQob6w0" height=3D"32" width=3D"32"></a></p></td></tr></tb=
+ody></table></td></tr></tbody></table></td></tr><tr><td class=3D"px-3 pb-3"=
+ colspan=3D"1" rowspan=3D"1" style=3D"padding-left:24px;padding-right:24px;=
+padding-bottom:24px"><div dir=3D"auto"><table border=3D"0" class=3D"leading=
+-regular" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"=
+ style=3D"line-height:1.25"><colgroup><col style=3D"min-width:25px"></colgr=
+oup><tbody><tr><td class=3D"job-alert-header" colspan=3D"1" rowspan=3D"1"><=
+h1 class=3D"custom-editor-heading-class text-display-sm font-normal leading=
+-regular" dir=3D"auto" style=3D"margin:0px;font-size:24px;font-weight:400;l=
+ine-height:1.25"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" =
+class=3D"custom-editor-link-class text-system-gray-90" href=3D"https://www.=
+linkedin.com/comm/jobs/search?f_TPR=C2=A1749068663-&amp;savedSearchId 05737=
+6436&amp;alertAction=3Dviewjobs&amp;origin=3DJOB_ALERT_EMAIL&amp;lipi=3Durn=
+%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3=
+D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Dem=
+l-email_job_alert_digest_01-primary_job_list-0-header_15057376436&amp;trkEm=
+ail=3Deml-email_job_alert_digest_01-primary_job_list-0-header_15057376436-n=
+ull-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=
+=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAz=
+NmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc=
+5MjcxNGRiYSwxLDE%3D" style=3D"display:inline-block;text-decoration:none;col=
+or:rgb(40,40,40)">Your job alert for <strong>software coop</strong></a></h1=
+></td></tr><tr><td class=3D"pt-1 job-alert-subheader" colspan=3D"1" rowspan=
+=3D"1" style=3D"padding-top:8px"><table border=3D"0" cellpadding=3D"0" cell=
+spacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-wid=
+th:25px"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><h2 class=3D=
+"custom-editor-heading-class text-md font-normal" dir=3D"auto" style=3D"mar=
+gin:0px;font-size:16px;font-weight:400">8 new jobs in Canada match your pre=
+ferences.</h2></td></tr></tbody></table></td></tr><tr><td class=3D"pt-3" co=
+lspan=3D"1" rowspan=3D"1" style=3D"padding-top:24px"><table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><=
+col style=3D"min-width:25px"></colgroup><tbody><tr><td colspan=3D"1" rowspa=
+n=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"t=
+op" width=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbod=
+y><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0"=
+ cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"mi=
+n-width:25px"><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=
+=3D"pr-1 w-6" colspan=3D"1" rowspan=3D"1" valign=3D"top" width=3D"48" style=
+=3D"width:48px;padding-right:8px"><p dir=3D"auto"><a target=3D"_blank" rel=
+=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-class" href=
+=3D"https://www.linkedin.com/comm/jobs/view/4242263271/?trackingId=C3=BFZH%=
+2B2smPXBhndpLPtjKKw%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e=
+529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_dig=
+est_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;m=
+idSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_=
+list-0-company_logo_15057376436&amp;trkEmail=3Deml-email_job_alert_digest_0=
+1-primary_job_list-0-company_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-=
+null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMj=
+QwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlN=
+mNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D=
+"color:rgb(10,102,194);display:inline-block;text-decoration:none"><img alt=
+=3D"Jerry" title=3D"image" style=3D"outline: none; text-decoration: none; p=
+osition: relative; display: inline-block; height: 48px; width: 48px; border=
+-radius: 2px; background-color: rgb(234, 230, 223);" src=3D"https://media.l=
+icdn.com/dms/image/v2/C560BAQFn2QCrOCDMwg/company-logo_100_100/company-logo=
+_100_100/0/1630648185818/jerryinc_logo?e!47483647&amp;v=C2=BEta&amp;t=3Dav3=
+6t83Kd04m6aR-OU4KCi1lrpySrASAdTcDVKhzXsY" height=3D"48" width=3D"48"></a></=
+p></td><td colspan=3D"1" rowspan=3D"1" valign=3D"top"><table border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup>=
+<col style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"pb-0" cols=
+pan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p dir=3D"auto"><a tar=
+get=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-=
+link-class font-bold text-md leading-regular text-system-blue-50" href=3D"h=
+ttps://www.linkedin.com/comm/jobs/view/4242263271/?trackingId=C3=BFZH%2B2sm=
+PXBhndpLPtjKKw%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8=
+b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_0=
+1%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=
+=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-=
+0-jobcard_body_15057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-pri=
+mary_job_list-0-jobcard_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&=
+amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGV=
+kNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZm=
+U2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"colo=
+r:rgb(10,102,194);display:inline-block;text-decoration:none;font-size:16px;=
+font-weight:600;line-height:1.25"><strong>Software Engineer I (Toronto)</st=
+rong></a></p></td></tr><tr><td class=3D"pb-0" colspan=3D"1" rowspan=3D"1" s=
+tyle=3D"padding-bottom:0px"><p dir=3D"auto" class=3D"text-system-gray-100 t=
+ext-xs leading-regular mt-0.5 line-clamp-1 text-ellipsis" style=3D"margin:4=
+px 0px 0px;font-weight:400;text-overflow:ellipsis;font-size:12px;line-heigh=
+t:1.25;color:rgb(31,31,31);overflow:hidden;display:-webkit-box"><a target=
+=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-lin=
+k-class" href=3D"https://www.linkedin.com/comm/jobs/view/4242263271/?tracki=
+ngId=C3=BFZH%2B2smPXBhndpLPtjKKw%3D%3D&amp;refId=3DByteString%28length%3D16=
+%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_=
+job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unO=
+nmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01=
+-primary_job_list-0-job_posting_15057376436&amp;trkEmail=3Deml-email_job_al=
+ert_digest_01-primary_job_list-0-job_posting_15057376436-null-cph4qf~mbkyzl=
+f2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJ=
+kY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZD=
+FkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3=
+D" style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none=
+">Jerry =C2=B7 Toronto, ON (Remote)</a></p></td></tr><tr><td colspan=3D"1" =
+rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valig=
+n=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup=
+><tbody><tr><td align=3D"left" colspan=3D"1" rowspan=3D"1" style=3D"font-si=
+ze:0px"><p dir=3D"auto">=E2=80=8B</p></td></tr></tbody></table></td></tr></=
+tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr=
+></tbody></table></td></tr><tr><td class=3D"pt-3" colspan=3D"1" rowspan=3D"=
+1" style=3D"padding-top:24px"><table border=3D"0" cellpadding=3D"0" cellspa=
+cing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:=
+25px"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=
+=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><c=
+olgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td colspan=3D"=
+1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" va=
+lign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"><col st=
+yle=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"pr-1 w-6" colspan=
+=3D"1" rowspan=3D"1" valign=3D"top" width=3D"48" style=3D"width:48px;paddin=
+g-right:8px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferre=
+r nofollow" class=3D"custom-editor-link-class" href=3D"https://www.linkedin=
+.com/comm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6ut2z3RI4qtU8gfw%3D%3D=
+&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;=
+lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcd=
+Az0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&am=
+p;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_15057=
+376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-comp=
+any_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbk=
+yzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc=
+0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YT=
+k4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);di=
+splay:inline-block;text-decoration:none"><img alt=3D"Jerry" title=3D"image"=
+ style=3D"outline: none; text-decoration: none; position: relative; display=
+: inline-block; height: 48px; width: 48px; border-radius: 2px; background-c=
+olor: rgb(234, 230, 223);" src=3D"https://media.licdn.com/dms/image/v2/C560=
+BAQFn2QCrOCDMwg/company-logo_100_100/company-logo_100_100/0/1630648185818/j=
+erryinc_logo?e!47483647&amp;v=C2=BEta&amp;t=3Dav36t83Kd04m6aR-OU4KCi1lrpySr=
+ASAdTcDVKhzXsY" height=3D"48" width=3D"48"></a></p></td><td colspan=3D"1" r=
+owspan=3D"1" valign=3D"top"><table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25=
+px"></colgroup><tbody><tr><td class=3D"pb-0" colspan=3D"1" rowspan=3D"1" st=
+yle=3D"padding-bottom:0px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noop=
+ener noreferrer nofollow" class=3D"custom-editor-link-class font-bold text-=
+md leading-regular text-system-blue-50" href=3D"https://www.linkedin.com/co=
+mm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6ut2z3RI4qtU8gfw%3D%3D&amp;re=
+fId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3D=
+urn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqH=
+w%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=
+=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_1505737643=
+6&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_b=
+ody_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2=
+-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTli=
+YWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQ=
+wMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display=
+:inline-block;text-decoration:none;font-size:16px;font-weight:600;line-heig=
+ht:1.25"><strong>Software Engineer</strong></a></p></td></tr><tr><td class=
+=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p dir=
+=3D"auto" class=3D"text-system-gray-100 text-xs leading-regular mt-0.5 line=
+-clamp-1 text-ellipsis" style=3D"margin:4px 0px 0px;font-weight:400;text-ov=
+erflow:ellipsis;font-size:12px;line-height:1.25;color:rgb(31,31,31);overflo=
+w:hidden;display:-webkit-box"><a target=3D"_blank" rel=3D"noopener noreferr=
+er nofollow" class=3D"custom-editor-link-class" href=3D"https://www.linkedi=
+n.com/comm/jobs/view/4242258925/?trackingId=3D%2BQm8bi6ut2z3RI4qtU8gfw%3D%3=
+D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp=
+;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEc=
+dAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&a=
+mp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057=
+376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_=
+posting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbky=
+zlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0=
+MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk=
+4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);dis=
+play:inline-block;text-decoration:none">Jerry =C2=B7 Toronto, ON (Remote)</=
+a></p></td></tr><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><c=
+ol style=3D"min-width:25px"></colgroup><tbody><tr><td align=3D"left" colspa=
+n=3D"1" rowspan=3D"1" style=3D"font-size:0px"><p dir=3D"auto">=E2=80=8B</p>=
+</td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></tab=
+le></td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td cl=
+ass=3D"pt-3" colspan=3D"1" rowspan=3D"1" style=3D"padding-top:24px"><table =
+border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"10=
+0%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td colsp=
+an=3D"1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D=
+"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"><=
+/colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0" ce=
+llpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><=
+col style=3D"min-width:25px"><col style=3D"min-width:25px"></colgroup><tbod=
+y><tr><td class=3D"pr-1 w-6" colspan=3D"1" rowspan=3D"1" valign=3D"top" wid=
+th=3D"48" style=3D"width:48px;padding-right:8px"><p dir=3D"auto"><a target=
+=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-lin=
+k-class" href=3D"https://www.linkedin.com/comm/jobs/view/4245554985/?tracki=
+ngId=C2=BDscm9GR3RaisVMaar%2FKKg%3D%3D&amp;refId=3DByteString%28length%3D16=
+%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_=
+job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unO=
+nmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01=
+-primary_job_list-0-company_logo_15057376436&amp;trkEmail=3Deml-email_job_a=
+lert_digest_01-primary_job_list-0-company_logo_15057376436-null-cph4qf~mbky=
+zlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxY=
+TJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZm=
+ZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE=
+%3D" style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:no=
+ne"><img alt=3D"Hitachi Rail" title=3D"image" style=3D"outline: none; text-=
+decoration: none; position: relative; display: inline-block; height: 48px; =
+width: 48px; border-radius: 2px; background-color: rgb(234, 230, 223);" src=
+=3D"https://media.licdn.com/dms/image/v2/D4E0BAQHsgde5W_AcpQ/company-logo_1=
+00_100/B4EZXt_8PPGwAc-/0/1743454717965/hitachirail_logo?e!47483647&amp;v=C2=
+=BEta&amp;t=3DzuTZ6VEMsSY2-bfqXBzc5kRdo0l_WF-FMzZlobKc_tc" height=3D"48" wi=
+dth=3D"48"></a></p></td><td colspan=3D"1" rowspan=3D"1" valign=3D"top"><tab=
+le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D=
+"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td cl=
+ass=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p di=
+r=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" class=
+=3D"custom-editor-link-class font-bold text-md leading-regular text-system-=
+blue-50" href=3D"https://www.linkedin.com/comm/jobs/view/4245554985/?tracki=
+ngId=C2=BDscm9GR3RaisVMaar%2FKKg%3D%3D&amp;refId=3DByteString%28length%3D16=
+%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_=
+job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unO=
+nmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01=
+-primary_job_list-0-jobcard_body_15057376436&amp;trkEmail=3Deml-email_job_a=
+lert_digest_01-primary_job_list-0-jobcard_body_15057376436-null-cph4qf~mbky=
+zlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxY=
+TJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZm=
+ZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE=
+%3D" style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:no=
+ne;font-size:16px;font-weight:600;line-height:1.25"><strong>Software Analys=
+t Intern (C++, C#, Java - 8 or 12months)</strong></a></p></td></tr><tr><td =
+class=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p =
+dir=3D"auto" class=3D"text-system-gray-100 text-xs leading-regular mt-0.5 l=
+ine-clamp-1 text-ellipsis" style=3D"margin:4px 0px 0px;font-weight:400;text=
+-overflow:ellipsis;font-size:12px;line-height:1.25;color:rgb(31,31,31);over=
+flow:hidden;display:-webkit-box"><a target=3D"_blank" rel=3D"noopener noref=
+errer nofollow" class=3D"custom-editor-link-class" href=3D"https://www.link=
+edin.com/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR3RaisVMaar%2FKKg%=
+3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29=
+&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR=
+3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSr=
+M1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1=
+5057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-=
+job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-=
+mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5=
+ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE=
+5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194)=
+;display:inline-block;text-decoration:none">Hitachi Rail =C2=B7 Toronto, ON=
+ (Hybrid)</a></p></td></tr><tr><td colspan=3D"1" rowspan=3D"1"><table borde=
+r=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><=
+colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td align=3D"l=
+eft" colspan=3D"1" rowspan=3D"1" style=3D"font-size:0px"><table class=3D"in=
+line-block" style=3D"display:inline-block"><colgroup><col style=3D"min-widt=
+h:25px"></colgroup><tbody><tr><td class=3D"job-card-flavor__container_redes=
+ign_shaded_background" colspan=3D"1" rowspan=3D"1" style=3D"margin-top:4px;=
+margin-right:4px;display:inline-block;border-radius:4px;background-color:rg=
+b(245,247,249);padding:4px"><table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25=
+px"><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"pr-0.5=
+ w-1" colspan=3D"1" rowspan=3D"1" width=3D"8" style=3D"width:8px;padding-ri=
+ght:4px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer no=
+follow" class=3D"custom-editor-link-class" href=3D"https://www.linkedin.com=
+/comm/jobs/view/4245554985/?trackingId=C2=BDscm9GR3RaisVMaar%2FKKg%3D%3D&am=
+p;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lip=
+i=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0=
+beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;t=
+rk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_150573764=
+36&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_post=
+ing_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2=
+-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTli=
+YWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQ=
+wMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display=
+:inline-block;text-decoration:none"><img alt=3D"" title=3D"image" style=3D"=
+outline: none; text-decoration: none; display: block; height: 16px; width: =
+16px;" src=3D"https://static.licdn.com/aero-v1/sc/h/3le24jev2hig88cuokev26k=
+sm" height=3D"16" width=3D"16"></a></p></td><td colspan=3D"1" rowspan=3D"1"=
+><p dir=3D"auto" class=3D"job-card-flavor__detail" style=3D"margin:0px;font=
+-weight:400;font-family:-apple-system,system-ui,BlinkMacSystemFont,&quot;Se=
+goe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&quot;Fira Sans&quot;,Ubuntu=
+,Oxygen,&quot;Oxygen Sans&quot;,Cantarell,&quot;Droid Sans&quot;,&quot;Appl=
+e Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Emoji&quot;,&=
+quot;Segoe UI Symbol&quot;,&quot;Lucida Grande&quot;,Helvetica,Arial,sans-s=
+erif;font-size:12px;line-height:1.25;color:rgb(102,102,102)"><a target=3D"_=
+blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-cla=
+ss" href=3D"https://www.linkedin.com/comm/jobs/view/4245554985/?trackingId=
+=C2=BDscm9GR3RaisVMaar%2FKKg%3D%3D&amp;refId=3DByteString%28length%3D16%2Cb=
+ytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_=
+alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmoo=
+FtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-pri=
+mary_job_list-0-job_posting_15057376436&amp;trkEmail=3Deml-email_job_alert_=
+digest_01-primary_job_list-0-job_posting_15057376436-null-cph4qf~mbkyzlf2~x=
+s-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2V=
+jZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZj=
+gxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" s=
+tyle=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none">Ac=
+tively recruiting</a></p></td></tr></tbody></table></td></tr></tbody></tabl=
+e></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></t=
+able></td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td =
+class=3D"pt-3" colspan=3D"1" rowspan=3D"1" style=3D"padding-top:24px"><tabl=
+e border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"=
+100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td col=
+span=3D"1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px=
+"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0"=
+ cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgrou=
+p><col style=3D"min-width:25px"><col style=3D"min-width:25px"></colgroup><t=
+body><tr><td class=3D"pr-1 w-6" colspan=3D"1" rowspan=3D"1" valign=3D"top" =
+width=3D"48" style=3D"width:48px;padding-right:8px"><p dir=3D"auto"><a targ=
+et=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-l=
+ink-class" href=3D"https://www.linkedin.com/comm/jobs/view/4245558111/?trac=
+kingId=3D%2Br3JzEUtCwPf4POr6IGr6w%3D%3D&amp;refId=3DByteString%28length%3D1=
+6%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email=
+_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-un=
+OnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_0=
+1-primary_job_list-0-company_logo_15057376436&amp;trkEmail=3Deml-email_job_=
+alert_digest_01-primary_job_list-0-company_logo_15057376436-null-cph4qf~mbk=
+yzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMx=
+YTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZ=
+mZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLD=
+E%3D" style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:n=
+one"><img alt=3D"Hitachi Rail" title=3D"image" style=3D"outline: none; text=
+-decoration: none; position: relative; display: inline-block; height: 48px;=
+ width: 48px; border-radius: 2px; background-color: rgb(234, 230, 223);" sr=
+c=3D"https://media.licdn.com/dms/image/v2/D4E0BAQHsgde5W_AcpQ/company-logo_=
+100_100/B4EZXt_8PPGwAc-/0/1743454717965/hitachirail_logo?e!47483647&amp;v=
+=C2=BEta&amp;t=3DzuTZ6VEMsSY2-bfqXBzc5kRdo0l_WF-FMzZlobKc_tc" height=3D"48"=
+ width=3D"48"></a></p></td><td colspan=3D"1" rowspan=3D"1" valign=3D"top"><=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=
+=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td=
+ class=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p=
+ dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" cla=
+ss=3D"custom-editor-link-class font-bold text-md leading-regular text-syste=
+m-blue-50" href=3D"https://www.linkedin.com/comm/jobs/view/4245558111/?trac=
+kingId=3D%2Br3JzEUtCwPf4POr6IGr6w%3D%3D&amp;refId=3DByteString%28length%3D1=
+6%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email=
+_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-un=
+OnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_0=
+1-primary_job_list-0-jobcard_body_15057376436&amp;trkEmail=3Deml-email_job_=
+alert_digest_01-primary_job_list-0-jobcard_body_15057376436-null-cph4qf~mbk=
+yzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMx=
+YTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZ=
+mZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLD=
+E%3D" style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:n=
+one;font-size:16px;font-weight:600;line-height:1.25"><strong>Software Analy=
+st Intern (C++, C#, Java - 8 or 12months)</strong></a></p></td></tr><tr><td=
+ class=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:0px"><p=
+ dir=3D"auto" class=3D"text-system-gray-100 text-xs leading-regular mt-0.5 =
+line-clamp-1 text-ellipsis" style=3D"margin:4px 0px 0px;font-weight:400;tex=
+t-overflow:ellipsis;font-size:12px;line-height:1.25;color:rgb(31,31,31);ove=
+rflow:hidden;display:-webkit-box"><a target=3D"_blank" rel=3D"noopener nore=
+ferrer nofollow" class=3D"custom-editor-link-class" href=3D"https://www.lin=
+kedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEUtCwPf4POr6IGr6w%=
+3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29=
+&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR=
+3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSr=
+M1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1=
+5057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-=
+job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-=
+mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5=
+ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE=
+5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194)=
+;display:inline-block;text-decoration:none">Hitachi Rail =C2=B7 Toronto, ON=
+ (Hybrid)</a></p></td></tr><tr><td colspan=3D"1" rowspan=3D"1"><table borde=
+r=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><=
+colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td align=3D"l=
+eft" colspan=3D"1" rowspan=3D"1" style=3D"font-size:0px"><table class=3D"in=
+line-block" style=3D"display:inline-block"><colgroup><col style=3D"min-widt=
+h:25px"></colgroup><tbody><tr><td class=3D"job-card-flavor__container_redes=
+ign_shaded_background" colspan=3D"1" rowspan=3D"1" style=3D"margin-top:4px;=
+margin-right:4px;display:inline-block;border-radius:4px;background-color:rg=
+b(245,247,249);padding:4px"><table border=3D"0" cellpadding=3D"0" cellspaci=
+ng=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25=
+px"><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"pr-0.5=
+ w-1" colspan=3D"1" rowspan=3D"1" width=3D"8" style=3D"width:8px;padding-ri=
+ght:4px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer no=
+follow" class=3D"custom-editor-link-class" href=3D"https://www.linkedin.com=
+/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEUtCwPf4POr6IGr6w%3D%3D&amp=
+;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=
+=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0b=
+eqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;tr=
+k=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_1505737643=
+6&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posti=
+ng_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-=
+xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliY=
+WY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQw=
+MWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:=
+inline-block;text-decoration:none"><img alt=3D"Jon Steele" title=3D"image" =
+style=3D"outline: none; text-decoration: none; position: relative; height: =
+16px; width: 16px; border-radius: 9999px; background-color: rgb(234, 230, 2=
+23); clip-path: circle(50%); display: block !important;" src=3D"https://med=
+ia.licdn.com/dms/image/v2/D5603AQHOGjm9qjGETw/profile-displayphoto-shrink_4=
+00_400/profile-displayphoto-shrink_400_400/0/1720137232117?e!47483647&amp;v=
+=C2=BEta&amp;t=3DY_FrwmnEpthE8dgs4c90va9i6TP-FE8fLnPBtLQb2nM" height=3D"16"=
+ width=3D"16"></a></p></td><td colspan=3D"1" rowspan=3D"1"><p dir=3D"auto" =
+class=3D"job-card-flavor__detail" style=3D"margin:0px;font-weight:400;font-=
+family:-apple-system,system-ui,BlinkMacSystemFont,&quot;Segoe UI&quot;,Robo=
+to,&quot;Helvetica Neue&quot;,&quot;Fira Sans&quot;,Ubuntu,Oxygen,&quot;Oxy=
+gen Sans&quot;,Cantarell,&quot;Droid Sans&quot;,&quot;Apple Color Emoji&quo=
+t;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Sym=
+bol&quot;,&quot;Lucida Grande&quot;,Helvetica,Arial,sans-serif;font-size:12=
+px;line-height:1.25;color:rgb(102,102,102)"><a target=3D"_blank" rel=3D"noo=
+pener noreferrer nofollow" class=3D"custom-editor-link-class" href=3D"https=
+://www.linkedin.com/comm/jobs/view/4245558111/?trackingId=3D%2Br3JzEUtCwPf4=
+POr6IGr6w%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f=
+243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR=
+5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0n=
+ggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-job=
+_posting_15057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_j=
+ob_list-0-job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=
+=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2=
+U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZ=
+jQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(1=
+0,102,194);display:inline-block;text-decoration:none">1 connection</a></p><=
+/td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></tabl=
+e></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></t=
+able></td></tr></tbody></table></td></tr><tr><td class=3D"pt-3" colspan=3D"=
+1" rowspan=3D"1" style=3D"padding-top:24px"><table border=3D"0" cellpadding=
+=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=
+=3D"min-width:25px"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><=
+table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=
+=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td=
+ colspan=3D"1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspac=
+ing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:2=
+5px"><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"pr-1 =
+w-6" colspan=3D"1" rowspan=3D"1" valign=3D"top" width=3D"48" style=3D"width=
+:48px;padding-right:8px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopen=
+er noreferrer nofollow" class=3D"custom-editor-link-class" href=3D"https://=
+www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1OhjdoN8b1ocS=
+qgug%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f24336=
+7d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd=
+%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ=
+07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-company_=
+logo_15057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_l=
+ist-0-company_logo_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3D=
+cph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1Y=
+jY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4=
+YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,1=
+02,194);display:inline-block;text-decoration:none"><img alt=3D"Lumentum" ti=
+tle=3D"image" style=3D"outline: none; text-decoration: none; position: rela=
+tive; display: inline-block; height: 48px; width: 48px; border-radius: 2px;=
+ background-color: rgb(234, 230, 223);" src=3D"https://media.licdn.com/dms/=
+image/v2/C560BAQGa6IaeP28SVw/company-logo_100_100/company-logo_100_100/0/16=
+30590218021/lumentum_logo?e!47483647&amp;v=C2=BEta&amp;t=3DmYr22pxvvjnFRRup=
+YdU12VXc4d8dCvmQmNifNhP-BkE" height=3D"48" width=3D"48"></a></p></td><td co=
+lspan=3D"1" rowspan=3D"1" valign=3D"top"><table border=3D"0" cellpadding=3D=
+"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D=
+"min-width:25px"></colgroup><tbody><tr><td class=3D"pb-0" colspan=3D"1" row=
+span=3D"1" style=3D"padding-bottom:0px"><p dir=3D"auto"><a target=3D"_blank=
+" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-class fo=
+nt-bold text-md leading-regular text-system-blue-50" href=3D"https://www.li=
+nkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1OhjdoN8b1ocSqgug%3=
+D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&=
+amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3=
+iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM=
+1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_1=
+5057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-=
+jobcard_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf=
+-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM=
+5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3Mj=
+E5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194=
+);display:inline-block;text-decoration:none;font-size:16px;font-weight:600;=
+line-height:1.25"><strong>Software Automation Test Engineer (Co-op Student/=
+Intern)</strong></a></p></td></tr><tr><td class=3D"pb-0" colspan=3D"1" rows=
+pan=3D"1" style=3D"padding-bottom:0px"><p dir=3D"auto" class=3D"text-system=
+-gray-100 text-xs leading-regular mt-0.5 line-clamp-1 text-ellipsis" style=
+=3D"margin:4px 0px 0px;font-weight:400;text-overflow:ellipsis;font-size:12p=
+x;line-height:1.25;color:rgb(31,31,31);overflow:hidden;display:-webkit-box"=
+><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-=
+editor-link-class" href=3D"https://www.linkedin.com/comm/jobs/view/42424434=
+85/?trackingId=3DZmD2X1OhjdoN8b1ocSqgug%3D%3D&amp;refId=3DByteString%28leng=
+th%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail=
+_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3D=
+AQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_di=
+gest_01-primary_job_list-0-job_posting_15057376436&amp;trkEmail=3Deml-email=
+_job_alert_digest_01-primary_job_list-0-job_posting_15057376436-null-cph4qf=
+~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2=
+ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTR=
+mNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYS=
+wxLDE%3D" style=3D"color:rgb(10,102,194);display:inline-block;text-decorati=
+on:none">Lumentum =C2=B7 Ottawa, ON</a></p></td></tr><tr><td colspan=3D"1" =
+rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valig=
+n=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup=
+><tbody><tr><td align=3D"left" colspan=3D"1" rowspan=3D"1" style=3D"font-si=
+ze:0px"><table class=3D"inline-block" style=3D"display:inline-block"><colgr=
+oup><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"job-ca=
+rd-flavor__container_redesign_shaded_background" colspan=3D"1" rowspan=3D"1=
+" style=3D"margin-top:4px;margin-right:4px;display:inline-block;border-radi=
+us:4px;background-color:rgb(245,247,249);padding:4px"><table border=3D"0" c=
+ellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup>=
+<col style=3D"min-width:25px"><col style=3D"min-width:25px"></colgroup><tbo=
+dy><tr><td class=3D"pr-0.5 w-1" colspan=3D"1" rowspan=3D"1" width=3D"8" sty=
+le=3D"width:8px;padding-right:4px"><p dir=3D"auto"><a target=3D"_blank" rel=
+=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-class" href=
+=3D"https://www.linkedin.com/comm/jobs/view/4242443485/?trackingId=3DZmD2X1=
+OhjdoN8b1ocSqgug%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529=
+a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest=
+_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midS=
+ig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primary_job_lis=
+t-0-job_posting_15057376436&amp;trkEmail=3Deml-email_job_alert_digest_01-pr=
+imary_job_list-0-job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&=
+amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGV=
+kNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZm=
+U2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"colo=
+r:rgb(10,102,194);display:inline-block;text-decoration:none"><img alt=3D"" =
+title=3D"image" style=3D"outline: none; text-decoration: none; display: blo=
+ck; height: 16px; width: 16px;" src=3D"https://static.licdn.com/aero-v1/sc/=
+h/3le24jev2hig88cuokev26ksm" height=3D"16" width=3D"16"></a></p></td><td co=
+lspan=3D"1" rowspan=3D"1"><p dir=3D"auto" class=3D"job-card-flavor__detail"=
+ style=3D"margin:0px;font-weight:400;font-family:-apple-system,system-ui,Bl=
+inkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&quot;,&qu=
+ot;Fira Sans&quot;,Ubuntu,Oxygen,&quot;Oxygen Sans&quot;,Cantarell,&quot;Dr=
+oid Sans&quot;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&qu=
+ot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Lucida Grande&quo=
+t;,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.25;color:rgb(102=
+,102,102)"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" class=
+=3D"custom-editor-link-class" href=3D"https://www.linkedin.com/comm/jobs/vi=
+ew/4242443485/?trackingId=3DZmD2X1OhjdoN8b1ocSqgug%3D%3D&amp;refId=3DByteSt=
+ring%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Ap=
+age%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;=
+midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_j=
+ob_alert_digest_01-primary_job_list-0-job_posting_15057376436&amp;trkEmail=
+=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_15057376436=
+-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToke=
+n=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTA=
+zNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljOD=
+c5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:inline-block;t=
+ext-decoration:none">Actively recruiting</a></p></td></tr></tbody></table><=
+/td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></tabl=
+e></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></t=
+able></td></tr><tr><td class=3D"pt-3" colspan=3D"1" rowspan=3D"1" style=3D"=
+padding-top:24px"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" v=
+align=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"></colg=
+roup><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0" cellpad=
+ding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col s=
+tyle=3D"min-width:25px"></colgroup><tbody><tr><td colspan=3D"1" rowspan=3D"=
+1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" w=
+idth=3D"100%"><colgroup><col style=3D"min-width:25px"><col style=3D"min-wid=
+th:25px"></colgroup><tbody><tr><td class=3D"pr-1 w-6" colspan=3D"1" rowspan=
+=3D"1" valign=3D"top" width=3D"48" style=3D"width:48px;padding-right:8px"><=
+p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" cl=
+ass=3D"custom-editor-link-class" href=3D"https://www.linkedin.com/comm/jobs=
+/view/4241276548/?trackingId=3DcQ4G7qHS7TL3NFipFA5YxA%3D%3D&amp;refId=3DByt=
+eString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%=
+3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&a=
+mp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-emai=
+l_job_alert_digest_01-primary_job_list-0-company_logo_15057376436&amp;trkEm=
+ail=3Deml-email_job_alert_digest_01-primary_job_list-0-company_logo_1505737=
+6436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otp=
+Token=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZ=
+jZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYT=
+ljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:inline-blo=
+ck;text-decoration:none"><img alt=3D"Siemens Healthineers" title=3D"image" =
+style=3D"outline: none; text-decoration: none; position: relative; display:=
+ inline-block; height: 48px; width: 48px; border-radius: 2px; background-co=
+lor: rgb(234, 230, 223);" src=3D"https://media.licdn.com/dms/image/v2/C4D0B=
+AQE5hmEcQGYmLg/company-logo_100_100/company-logo_100_100/0/1635709402063/si=
+emens_healthineers_logo?e!47483647&amp;v=C2=BEta&amp;t=3DWzBCELa5qwxaNwIBJm=
+DQ_TZZwSooZJPiv_BSin1QzGA" height=3D"48" width=3D"48"></a></p></td><td cols=
+pan=3D"1" rowspan=3D"1" valign=3D"top"><table border=3D"0" cellpadding=3D"0=
+" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"m=
+in-width:25px"></colgroup><tbody><tr><td class=3D"pb-0" colspan=3D"1" rowsp=
+an=3D"1" style=3D"padding-bottom:0px"><p dir=3D"auto"><a target=3D"_blank" =
+rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-class font=
+-bold text-md leading-regular text-system-blue-50" href=3D"https://www.link=
+edin.com/comm/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7TL3NFipFA5YxA%3D%=
+3D&amp;refId=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&am=
+p;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iE=
+cdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&=
+amp;trk=3Deml-email_job_alert_digest_01-primary_job_list-0-jobcard_body_150=
+57376436&amp;trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-jo=
+bcard_body_15057376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-m=
+bkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5Z=
+Dc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5=
+YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);=
+display:inline-block;text-decoration:none;font-size:16px;font-weight:600;li=
+ne-height:1.25"><strong>Software Quality Assurance Specialist Co-op</strong=
+></a></p></td></tr><tr><td class=3D"pb-0" colspan=3D"1" rowspan=3D"1" style=
+=3D"padding-bottom:0px"><p dir=3D"auto" class=3D"text-system-gray-100 text-=
+xs leading-regular mt-0.5 line-clamp-1 text-ellipsis" style=3D"margin:4px 0=
+px 0px;font-weight:400;text-overflow:ellipsis;font-size:12px;line-height:1.=
+25;color:rgb(31,31,31);overflow:hidden;display:-webkit-box"><a target=3D"_b=
+lank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-clas=
+s" href=3D"https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=
+=3DcQ4G7qHS7TL3NFipFA5YxA%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbyte=
+s%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_ale=
+rt_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA=
+&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primar=
+y_job_list-0-job_posting_15057376436&amp;trkEmail=3Deml-email_job_alert_dig=
+est_01-primary_job_list-0-job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-n=
+ull-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZG=
+JkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxM=
+TBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" styl=
+e=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none">Sieme=
+ns Healthineers =C2=B7 Ottawa, ON (On-site)</a></p></td></tr><tr><td colspa=
+n=3D"1" rowspan=3D"1"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"=
+0" valign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"></=
+colgroup><tbody><tr><td align=3D"left" colspan=3D"1" rowspan=3D"1" style=3D=
+"font-size:0px"><table class=3D"inline-block" style=3D"display:inline-block=
+"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=
+=3D"job-card-flavor__container_redesign_shaded_background" colspan=3D"1" ro=
+wspan=3D"1" style=3D"margin-top:4px;margin-right:4px;display:inline-block;b=
+order-radius:4px;background-color:rgb(245,247,249);padding:4px"><table bord=
+er=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%">=
+<colgroup><col style=3D"min-width:25px"><col style=3D"min-width:25px"></col=
+group><tbody><tr><td class=3D"pr-0.5 w-1" colspan=3D"1" rowspan=3D"1" width=
+=3D"8" style=3D"width:8px;padding-right:4px"><p dir=3D"auto"><a target=3D"_=
+blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-cla=
+ss" href=3D"https://www.linkedin.com/comm/jobs/view/4241276548/?trackingId=
+=3DcQ4G7qHS7TL3NFipFA5YxA%3D%3D&amp;refId=3DByteString%28length%3D16%2Cbyte=
+s%3D9e529a8b...f243367d%29&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_ale=
+rt_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA=
+&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-primar=
+y_job_list-0-job_posting_15057376436&amp;trkEmail=3Deml-email_job_alert_dig=
+est_01-primary_job_list-0-job_posting_15057376436-null-cph4qf~mbkyzlf2~xs-n=
+ull-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZG=
+JkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxM=
+TBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" styl=
+e=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none"><img =
+alt=3D"" title=3D"image" style=3D"outline: none; text-decoration: none; dis=
+play: block; height: 16px; width: 16px;" src=3D"https://static.licdn.com/ae=
+ro-v1/sc/h/3le24jev2hig88cuokev26ksm" height=3D"16" width=3D"16"></a></p></=
+td><td colspan=3D"1" rowspan=3D"1"><p dir=3D"auto" class=3D"job-card-flavor=
+__detail" style=3D"margin:0px;font-weight:400;font-family:-apple-system,sys=
+tem-ui,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,&quot;Helvetica Neue&=
+quot;,&quot;Fira Sans&quot;,Ubuntu,Oxygen,&quot;Oxygen Sans&quot;,Cantarell=
+,&quot;Droid Sans&quot;,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&=
+quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;,&quot;Lucida G=
+rande&quot;,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.25;colo=
+r:rgb(102,102,102)"><a target=3D"_blank" rel=3D"noopener noreferrer nofollo=
+w" class=3D"custom-editor-link-class" href=3D"https://www.linkedin.com/comm=
+/jobs/view/4241276548/?trackingId=3DcQ4G7qHS7TL3NFipFA5YxA%3D%3D&amp;refId=
+=3DByteString%28length%3D16%2Cbytes%3D9e529a8b...f243367d%29&amp;lipi=3Durn=
+%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3=
+D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Dem=
+l-email_job_alert_digest_01-primary_job_list-0-job_posting_15057376436&amp;=
+trkEmail=3Deml-email_job_alert_digest_01-primary_job_list-0-job_posting_150=
+57376436-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp=
+;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODY=
+xNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3OD=
+gzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:inline=
+-block;text-decoration:none">Actively recruiting</a></p></td></tr></tbody><=
+/table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbod=
+y></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></t=
+body></table></td></tr><tr><td class=3D"pt-3 text-left" colspan=3D"1" rowsp=
+an=3D"1" style=3D"padding-top:24px;text-align:left"><table border=3D"0" cla=
+ss=3D"email-button" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" widt=
+h=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><t=
+d align=3D"left" colspan=3D"1" rowspan=3D"1" valign=3D"middle"><table borde=
+r=3D"0" class=3D"border-separate" cellpadding=3D"0" cellspacing=3D"0" valig=
+n=3D"top" width=3D"auto" style=3D"border-collapse:separate"><colgroup><col =
+style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"btn-md btn-prim=
+ary border-color-brand button-link leading-regular !min-h-[auto] !shadow-no=
+ne border-1 border-solid" colspan=3D"1" rowspan=3D"1" style=3D"height:min-c=
+ontent;border-radius:24px;padding:12px 24px;text-align:center;font-size:16p=
+x;font-weight:600;text-decoration-line:none;background-color:rgb(10,102,194=
+);color:rgb(255,255,255);border-width:1px;border-style:solid;border-color:r=
+gb(10,102,194);line-height:1.25;min-height:auto!important"><p dir=3D"auto">=
+<a target=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-e=
+ditor-link-class no-underline" href=3D"https://www.linkedin.com/comm/jobs/s=
+earch?f_TPR=C2=A1749068663-&amp;savedSearchId 057376436&amp;alertAction=3Dv=
+iewjobs&amp;origin=3DJOB_ALERT_EMAIL&amp;lipi=3Durn%3Ali%3Apage%3Aemail_ema=
+il_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-=
+unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest=
+_01-primary_job_list-0-see_all_jobs_button_15057376436&amp;trkEmail=3Deml-e=
+mail_job_alert_digest_01-primary_job_list-0-see_all_jobs_button_15057376436=
+-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToke=
+n=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTA=
+zNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljOD=
+c5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:inline-block;t=
+ext-decoration:none"><span style=3D"color:#ffffff;text-decoration-line:none=
+"><strong>See all jobs</strong></span></a></p></td></tr></tbody></table></t=
+d></tr></tbody></table></td></tr><tr><td class=3D"pt-3" colspan=3D"1" rowsp=
+an=3D"1" style=3D"padding-top:24px"><hr class=3D"custom-editor-divider-clas=
+s"></td></tr><tr><td class=3D"pt-3" colspan=3D"1" rowspan=3D"1" style=3D"pa=
+dding-top:24px"><table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" val=
+ign=3D"top" width=3D"100%"><colgroup><col style=3D"min-width:25px"></colgro=
+up><tbody><tr><td colspan=3D"1" rowspan=3D"1"><table border=3D"0" cellpaddi=
+ng=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%"><colgroup><col sty=
+le=3D"min-width:25px"></colgroup><tbody><tr><td align=3D"left" class=3D"w-0=
+" colspan=3D"1" rowspan=3D"1" valign=3D"top" width=3D"0" style=3D"width:0px=
+"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow"=
+ class=3D"custom-editor-link-class" href=3D"https://ca.linkedin.com/comm/in=
+/devnull03?lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7K=
+d%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyT=
+Z07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-job~alert-0-premium~upsell=
+&amp;trkEmail=3Deml-email_job_alert_digest_01-job~alert-0-premium~upsell-nu=
+ll-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=
+=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAz=
+NmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc=
+5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,194);display:inline-block;te=
+xt-decoration:none"><img alt=3D"Premium icon" title=3D"image" style=3D"outl=
+ine: none; text-decoration: none; width: 84px;" src=3D"https://static.licdn=
+.com/aero-v1/sc/h/6mjomvgg6rdiwm5rnormbdyja" width=3D"84"></a></p></td></tr=
+><tr><td align=3D"center" class=3D"text-center" colspan=3D"1" rowspan=3D"1"=
+ style=3D"text-align:center"><p dir=3D"auto"><img alt=3D"Arnav Mehta" title=
+=3D"image" style=3D"outline: none; text-decoration: none; position: relativ=
+e; display: inline-block; height: 128px; width: 128px; border-radius: 9999p=
+x; background-color: rgb(234, 230, 223); clip-path: circle(50%);" src=3D"ht=
+tps://media.licdn.com/dms/image/v2/D5603AQFqzicluTQlig/profile-displayphoto=
+-shrink_200_200/B56ZRsN64JGoAY-/0/1736982376194?e!47483647&amp;v=C2=BEta&am=
+p;t=3DQVq0rQnVTXN6-NSi-_5fthIx0e6woJKwK1S-BQob6w0" height=3D"128" width=3D"=
+128"></p></td></tr></tbody></table></td></tr><tr><td class=3D"text-lg leadi=
+ng-regular text-center pt-2" colspan=3D"1" rowspan=3D"1" style=3D"padding-t=
+op:16px;text-align:center;font-size:20px;line-height:1.25"><p dir=3D"auto">=
+Job search smarter with Premium</p></td></tr><tr><td class=3D"pt-2" colspan=
+=3D"1" rowspan=3D"1" style=3D"padding-top:16px"><table border=3D"0" class=
+=3D"email-button" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=
+=3D"100%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td=
+ align=3D"center" colspan=3D"1" rowspan=3D"1" valign=3D"middle"><table bord=
+er=3D"0" class=3D"border-separate" cellpadding=3D"0" cellspacing=3D"0" vali=
+gn=3D"top" width=3D"auto" style=3D"border-collapse:separate"><colgroup><col=
+ style=3D"min-width:25px"></colgroup><tbody><tr><td class=3D"btn-sm btn-sec=
+ondary !border-[#424242] button-link leading-regular !min-h-[auto] !shadow-=
+none border-1 border-solid" colspan=3D"1" rowspan=3D"1" style=3D"height:min=
+-content;border-radius:24px;padding:7px 16px;text-align:center;font-size:14=
+px;font-weight:600;text-decoration-line:none;background-color:rgba(0,0,0,0)=
+;color:rgba(0,0,0,0.75);border-width:1px;border-style:solid;line-height:1.2=
+5;min-height:auto!important;border-color:rgb(66,66,66)!important"><p dir=3D=
+"auto"><a target=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"c=
+ustom-editor-link-class no-underline" href=3D"https://www.linkedin.com/comm=
+/premium/products/?upsellOrderOrigin=3Demail_job_alert_digest_taj_upsell&am=
+p;utype=3Djob&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%=
+3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=
+=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-null-0-null&amp;t=
+rkEmail=3Deml-email_job_alert_digest_01-null-0-null-null-cph4qf~mbkyzlf2~xs=
+-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2Vj=
+ZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjg=
+xMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" st=
+yle=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none"><sp=
+an style=3D"color:#424242!important;text-decoration-line:none"><strong>Try =
+1 month for $0</strong></span></a></p></td></tr></tbody></table></td></tr><=
+/tbody></table></td></tr></tbody></table></td></tr></tbody></table></div></=
+td></tr><tr><td class=3D"bg-color-background-canvas p-3" colspan=3D"1" rows=
+pan=3D"1" style=3D"background-color:rgb(243,242,240);padding:24px"><table b=
+order=3D"0" cellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100=
+%"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><tr><td class=
+=3D"text-center pb-2" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom:1=
+6px;text-align:center"><h2 class=3D"custom-editor-heading-class text-lg tex=
+t-teal-80" dir=3D"auto" style=3D"margin:0px;font-weight:500;font-size:20px;=
+color:rgb(17,73,81)"><strong>Get the new LinkedIn desktop app</strong></h2>=
+</td></tr><tr><td class=3D"text-center pb-2" colspan=3D"1" rowspan=3D"1" st=
+yle=3D"padding-bottom:16px;text-align:center"><p dir=3D"auto"><a target=3D"=
+_blank" rel=3D"noopener noreferrer" class=3D"custom-editor-link-class" href=
+=3D"https://apps.microsoft.com/store/detail/9WZDNCRFJ4Q7?launch=3Dtrue&amp;=
+cid=3Dlinkedin_email_upsell&amp;mode=3Dfull" style=3D"color:rgb(10,102,194)=
+;display:inline-block;text-decoration:none"><img alt=3D"Get it from Microso=
+ft" title=3D"image" style=3D"outline: none; text-decoration: none; height: =
+40px; width: 112px;" src=3D"https://static.licdn.com/aero-v1/sc/h/ejpkkpwvq=
+ks31a3cjqokb7fbm" height=3D"40" width=3D"112"></a></p></td></tr><tr><td cla=
+ss=3D"text-center pb-2" colspan=3D"1" rowspan=3D"1" style=3D"padding-bottom=
+:16px;text-align:center"><h2 class=3D"custom-editor-heading-class text-md t=
+ext-teal-80" dir=3D"auto" style=3D"margin:0px;font-weight:500;font-size:16p=
+x;color:rgb(17,73,81)"><strong>Also available on mobile</strong></h2></td><=
+/tr><tr><td class=3D"text-center" colspan=3D"1" rowspan=3D"1" style=3D"text=
+-align:center"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopener norefer=
+rer" class=3D"custom-editor-link-class" href=3D"https://itunes.apple.com/us=
+/app/linkedin/id288429040?pt 746&amp;ct=3Dst_appsite_flagship&amp;mt=3D8" s=
+tyle=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none"><i=
+mg alt=3D"Download on the App Store" title=3D"image" style=3D"outline: none=
+; text-decoration: none; height: 40px; width: 120px; padding-right: 8px;" s=
+rc=3D"https://static.licdn.com/aero-v1/sc/h/76yzkd0h5kiv27lrd4yaenylk" heig=
+ht=3D"40" width=3D"120"> </a><a target=3D"_blank" rel=3D"noopener noreferre=
+r" class=3D"custom-editor-link-class" href=3D"https://play.google.com/store=
+/apps/details?id=3Dcom.linkedin.android&amp;referrer=3Dst_appsite_flagship"=
+ style=3D"color:rgb(10,102,194);display:inline-block;text-decoration:none">=
+<img alt=3D"Get it on Google Play" title=3D"image" style=3D"outline: none; =
+text-decoration: none; height: 40px; width: 134px;" src=3D"https://static.l=
+icdn.com/aero-v1/sc/h/142qudwblp58zwmc9vkqfplug" height=3D"40" width=3D"134=
+"></a></p></td></tr><tr><td class=3D"py-2" colspan=3D"1" rowspan=3D"1" styl=
+e=3D"padding-top:16px;padding-bottom:16px"><hr class=3D"custom-editor-divid=
+er-class"></td></tr></tbody></table><table border=3D"0" class=3D"text-xs" c=
+ellpadding=3D"0" cellspacing=3D"0" valign=3D"top" width=3D"100%" style=3D"f=
+ont-size:12px"><colgroup><col style=3D"min-width:25px"></colgroup><tbody><t=
+r><td class=3D"pb-1 m-0" colspan=3D"1" rowspan=3D"1" style=3D"margin:0px;pa=
+dding-bottom:8px"><p dir=3D"auto">This email was intended for Arnav Mehta (=
+Research Assistant and Web Developer @ UFV | Computer Science @ UFV)</p></t=
+d></tr><tr><td class=3D"pb-1 m-0" colspan=3D"1" rowspan=3D"1" style=3D"marg=
+in:0px;padding-bottom:8px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noop=
+ener noreferrer nofollow" class=3D"custom-editor-link-class text-inherit un=
+derline" href=3D"https://www.linkedin.com/help/linkedin/answer/4788?lang=3D=
+en&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2B=
+aR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07P=
+SrM1&amp;trk=3Deml-email_job_alert_digest_01-SecurityHelp-0-footerglimmer&a=
+mp;trkEmail=3Deml-email_job_alert_digest_01-SecurityHelp-0-footerglimmer-nu=
+ll-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=
+=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAz=
+NmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc=
+5MjcxNGRiYSwxLDE%3D" style=3D"display:inline-block;text-decoration:underlin=
+e;color:inherit"><u>Learn why we included this.</u></a></p></td></tr><tr><t=
+d class=3D"pb-1 m-0" colspan=3D"1" rowspan=3D"1" style=3D"margin:0px;paddin=
+g-bottom:8px"><p dir=3D"auto">You are receiving Job Alert emails.</p></td><=
+/tr><tr><td class=3D"pb-1 m-0" colspan=3D"1" rowspan=3D"1" style=3D"margin:=
+0px;padding-bottom:8px"><p dir=3D"auto"><a target=3D"_blank" rel=3D"noopene=
+r noreferrer nofollow" class=3D"custom-editor-link-class" href=3D"https://w=
+ww.linkedin.com/comm/jobs/alerts?lipi=3Durn%3Ali%3Apage%3Aemail_email_job_a=
+lert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooF=
+tA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-foot=
+er-0-manage_alerts_button&amp;trkEmail=3Deml-email_job_alert_digest_01-foot=
+er-0-manage_alerts_button-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4q=
+f-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OW=
+M5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3M=
+jE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102,19=
+4);display:inline-block;text-decoration:none">Manage job alerts </a>=C2=A0=
+=C2=A0=C2=B7=C2=A0=C2=A0 <a target=3D"_blank" rel=3D"noopener noreferrer no=
+follow" class=3D"custom-editor-link-class text-inherit underline" href=3D"h=
+ttps://www.linkedin.com/job-alert-email-unsubscribe?savedSearchId 057376436=
+&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR=
+3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSr=
+M1&amp;ek=3Demail_job_alert_digest_01&amp;e=3Dcph4qf-mbkyzlf2-xs&amp;eid=3D=
+cph4qf-mbkyzlf2-xs&amp;m=3Dunsubscribe&amp;ts=3DfooterGlimmer&amp;li=3D0&am=
+p;t=3Dplh" style=3D"display:inline-block;text-decoration:underline;color:in=
+herit"><u>Unsubscribe</u></a> =C2=A0=C2=A0=C2=B7=C2=A0=C2=A0 <a target=3D"_=
+blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-link-cla=
+ss text-inherit underline" href=3D"https://www.linkedin.com/help/linkedin/a=
+nswer/67?lang=3Den&amp;lipi=3Durn%3Ali%3Apage%3Aemail_email_job_alert_diges=
+t_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;midToken=3DAQH-unOnmooFtA&amp;mid=
+Sig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job_alert_digest_01-help-0-footerg=
+limmer&amp;trkEmail=3Deml-email_job_alert_digest_01-help-0-footerglimmer-nu=
+ll-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcph4qf-mbkyzlf2-xs&amp;otpToken=
+=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY4OWM5ZDc0MTliYWY4ODYxNzZjZTAz=
+NmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4YjM3MjE5YTk4YmQwMWE3ODgzYTljODc=
+5MjcxNGRiYSwxLDE%3D" style=3D"display:inline-block;text-decoration:underlin=
+e;color:inherit"><u>Help</u></a></p></td></tr><tr><td class=3D"pb-1" colspa=
+n=3D"1" rowspan=3D"1" style=3D"padding-bottom:8px"><p dir=3D"auto"><a targe=
+t=3D"_blank" rel=3D"noopener noreferrer nofollow" class=3D"custom-editor-li=
+nk-class" href=3D"https://www.linkedin.com/comm/feed/?lipi=3Durn%3Ali%3Apag=
+e%3Aemail_email_job_alert_digest_01%3BR5O7Kd%2BaR3iEcdAz0beqHw%3D%3D&amp;mi=
+dToken=3DAQH-unOnmooFtA&amp;midSig=3D0nggyTZ07PSrM1&amp;trk=3Deml-email_job=
+_alert_digest_01-footer-0-logoGlimmer&amp;trkEmail=3Deml-email_job_alert_di=
+gest_01-footer-0-logoGlimmer-null-cph4qf~mbkyzlf2~xs-null-null&amp;eid=3Dcp=
+h4qf-mbkyzlf2-xs&amp;otpToken=3DMTUwMzE2ZTMxYTJkY2VjZGJkMjQwNGVkNDIxN2U1YjY=
+4OWM5ZDc0MTliYWY4ODYxNzZjZTAzNmQ0NzViNTRmNWZmZDFkZjgxMTBlNmNjZmU2M2ZkZjQ4Yj=
+M3MjE5YTk4YmQwMWE3ODgzYTljODc5MjcxNGRiYSwxLDE%3D" style=3D"color:rgb(10,102=
+,194);display:inline-block;text-decoration:none"><img alt=3D"LinkedIn" titl=
+e=3D"image" style=3D"outline: none; text-decoration: none; image-rendering:=
+ crisp-edges; display: block; height: 14px; width: 56px;" src=3D"https://st=
+atic.licdn.com/aero-v1/sc/h/9ehe6n39fa07dc5edzv0rla4e" height=3D"14" width=
+=3D"56"></a></p></td></tr><tr><td colspan=3D"1" rowspan=3D"1"><p dir=3D"aut=
+o">=C2=A9 2025 LinkedIn Corporation, 1=E2=80=8C000 West Maude Avenue, Sunny=
+vale, CA 94085. LinkedIn and the LinkedIn logo are registered trademarks of=
+ LinkedIn.</p></td></tr></tbody></table></td></tr></tbody></table></td></tr=
+></tbody></table><p dir=3D"auto"><img alt=3D"" title=3D"image" style=3D"out=
+line: none; text-decoration: none; width: 1px; height: 1px;" src=3D"https:/=
+/www.linkedin.com/emimp/ip_WTNCb05IRm1MVzFpYTNsNmJHWXlMWGh6OlpXMWhhV3hmYW05=
+aVgyRnNaWEowWDJScFoyVnpkRjh3TVE9PTo=3D.gif" height=3D"1" width=3D"1"></p></=
+div>
+    </body>
+   =20
+
+--00000000000089d97d06371cdb80--

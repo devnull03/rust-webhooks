@@ -1887,6 +1887,7 @@ dependencies = [
  "hyper",
  "lopdf",
  "mail-parser",
+ "regex",
  "reqwest",
  "resend-rs",
  "serde",

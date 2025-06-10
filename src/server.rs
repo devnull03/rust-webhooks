@@ -218,14 +218,13 @@ async fn cloudflare_job_alert_reciever(
                     email_content.chars().take(200).collect::<String>()
                 );
 
-
                 let subject = format!("Job alert processing from {}", payload.from);
                 email::send_email(
                     &state.resend,
                     &email_content,
                     Some(subject.as_str()),
                     Some(
-                        Attachment::from_content(email_bytes)
+                        Attachment::from_content(email_bytes.clone())
                             .with_content_type("txt")
                             .with_filename("email_bytes"),
                     ),
@@ -233,7 +232,7 @@ async fn cloudflare_job_alert_reciever(
                 .await
                 .unwrap();
 
-                job_checker::server::alert_email_handler(&payload.from, &email_content)
+                job_checker::server::alert_email_handler(&payload.from, &email_bytes)
                     .await
                     .unwrap();
             }
