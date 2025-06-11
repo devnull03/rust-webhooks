@@ -1,6 +1,6 @@
-mod models;
 mod helpers;
 mod middlewares;
+mod models;
 mod scheduler;
 mod server;
 
@@ -14,10 +14,15 @@ use std::{env, sync::Arc};
 use tracing::info;
 
 #[derive(Clone)]
-pub struct AppData {
+pub struct TimesheetAppData {
     notion_client: Client,
-    timesheet_db_id: String,
-    timesheet_automation_id: String,
+    db_id: String,
+    automation_id: String,
+}
+
+#[derive(Clone)]
+pub struct AppData {
+    timesheet: TimesheetAppData,
     resend: Resend,
 }
 pub struct CustomService {
@@ -31,15 +36,17 @@ async fn main(
 ) -> Result<CustomService, shuttle_runtime::Error> {
     info!("Starting Rust Webhooks server");
 
-    let notion_api_key = secrets.get("NOTION_API_KEY").unwrap();
+    let notion_api_key = secrets.get("TIMESHEET_NOTION_API_KEY").unwrap();
     info!("Initializing Notion client");
     let notion_client = notion::notion_client_init(notion_api_key).unwrap();
 
     info!("Configuring application state");
     let shared_state: Arc<AppData> = Arc::new(AppData {
-        notion_client,
-        timesheet_db_id: secrets.get("DB_ID").unwrap(),
-        timesheet_automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
+        timesheet: TimesheetAppData {
+            notion_client,
+            db_id: secrets.get("TIMESHEET_DB_ID").unwrap(),
+            automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
+        },
         resend: Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str()),
     });
 

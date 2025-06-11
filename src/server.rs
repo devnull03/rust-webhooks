@@ -11,7 +11,9 @@ use tracing::{error, info};
 
 use crate::{
     helpers::{
-        email, job_checker, notion,
+        email,
+        job_checker::{self},
+        notion,
         pdf::{create_sasi_timesheet, TimesheetData},
     },
     middlewares,
@@ -59,7 +61,7 @@ async fn notion_webhook(
     if payload
         .source
         .automation_id
-        .ne(&state.timesheet_automation_id)
+        .ne(&state.timesheet.automation_id)
     {
         info!(
             "Automation ID mismatch. Received: {}",
@@ -70,11 +72,12 @@ async fn notion_webhook(
 
     info!(
         "Fetching timesheet data from Notion database: {}",
-        state.timesheet_db_id
+        state.timesheet.db_id
     );
-    let timesheet_raw_data = notion::fetch_data(&state.notion_client, &state.timesheet_db_id)
-        .await
-        .unwrap();
+    let timesheet_raw_data =
+        notion::fetch_data(&state.timesheet.notion_client, &state.timesheet.db_id)
+            .await
+            .unwrap();
 
     match TimesheetData::try_from(timesheet_raw_data.results) {
         Ok(timesheet_data) => {
@@ -125,11 +128,12 @@ async fn notion_webhook(
 async fn notion_test(State(state): State<Arc<AppData>>) -> String {
     info!(
         "Fetching timesheet data from Notion database: {}",
-        state.timesheet_db_id
+        state.timesheet.db_id
     );
-    let timesheet_raw_data = notion::fetch_data(&state.notion_client, &state.timesheet_db_id)
-        .await
-        .unwrap();
+    let timesheet_raw_data =
+        notion::fetch_data(&state.timesheet.notion_client, &state.timesheet.db_id)
+            .await
+            .unwrap();
 
     match TimesheetData::try_from(timesheet_raw_data.results) {
         Ok(timesheet_data) => {
@@ -181,9 +185,9 @@ async fn notion_test(State(state): State<Arc<AppData>>) -> String {
 async fn notion_db(State(state): State<Arc<AppData>>) -> String {
     info!(
         "Retrieving database structure for: {}",
-        state.timesheet_db_id
+        state.timesheet.db_id
     );
-    notion::retrive_db(&state.notion_client, &state.timesheet_db_id)
+    notion::retrive_db(&state.timesheet.notion_client, &state.timesheet.db_id)
         .await
         .unwrap()
 }
@@ -232,9 +236,7 @@ async fn cloudflare_job_alert_reciever(
                 .await
                 .unwrap();
 
-                job_checker::server::alert_email_handler(&payload.from, &email_bytes)
-                    .await
-                    .unwrap();
+                // JobAlertEmailHandler::new(&email_bytes);
             }
             Err(e) => error!("Failed to parse email as UTF-8: {:?}", e),
         },

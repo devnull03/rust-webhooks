@@ -43,7 +43,7 @@ pub async fn notion_automation_check(
     if payload
         .source
         .automation_id
-        .ne(&state.timesheet_automation_id)
+        .ne(&state.timesheet.automation_id)
     {
         let error_message = "Invalid automation id";
         error!("Automation webhook validation failed: {}", error_message);
