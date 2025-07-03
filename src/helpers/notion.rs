@@ -179,7 +179,7 @@ pub mod utils {
         );
 
         let filter_string = format!(
-            r#"{{"filter": {{"or": [ {{"property": "notes","rich_text": {{"contains": "\\ TODO"}}}},{{"and": [{{"property": "{date_property_name}","date": {{"on_or_after": "{pay_period_start}"}}}},{{"property": "{date_property_name}","date": {{"on_or_before": "{pay_period_end}"}}}} ]}} ]}}}}"#,
+            r#"{{"filter": {{"or": [ {{"property": "notes","rich_text": {{"contains": "\\ TODO"}}}},{{"and": [{{"property": "{date_property_name}","date": {{"on_or_after": "{pay_period_start}"}}}},{{"property": "{date_property_name}","date": {{"on_or_before": "{pay_period_end}"}}}} ]}} ]}}, "sort": [{{"property": "{date_property_name}", "direction": "ascending"}}]}}"#,
             pay_period_start = current_pay_period.0,
             pay_period_end = current_pay_period.1
         );
