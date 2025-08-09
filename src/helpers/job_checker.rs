@@ -1,3 +1,9 @@
+use mail_parser::{Message, MessageParser};
+use regex::Regex;
+use std::collections::HashMap;
+
+use crate::models::job::{JobAlertSource, ParsedJob};
+
 pub mod scheduler {
     use anyhow::Ok;
     use tracing::info;
@@ -25,15 +31,22 @@ pub mod scheduler {
     }
 }
 
-pub mod server {
-    use std::{any, collections::HashMap};
+#[derive(Default)]
+pub struct JobAlertEmailHandler {
+    parsed_jobs: HashMap<String, ParsedJob>,
+}
 
-    use mail_parser::{Message, MessageParser};
-    use regex::Regex;
+impl JobAlertEmailHandler {
+    pub fn results(&self) -> &HashMap<String, ParsedJob> {
+        &self.parsed_jobs
+    }
 
-    use crate::models::job::{JobAlertSource, ParsedJob};
+    pub fn new(email_content: &[u8]) -> Self {
 
-    pub async fn alert_email_handler(_from: &str, email_content: &[u8]) -> Result<(), ()> {
+        let mut data = Self {
+            parsed_jobs: HashMap::new()
+        };
+
         let parsed_email = MessageParser::default().parse(&email_content).unwrap();
 
         println!(
@@ -46,15 +59,19 @@ pub mod server {
         if let Some(body) = parsed_email.body_text(0) {
             let re = Regex::new(r"jobalerts-noreply@linkedin\.com").unwrap();
             if re.is_match(&body) {
-                println!("linkedin email found")
+                data.parse_linkedin_email(&parsed_email);
+            }
+
+            let re = Regex::new(r"Glassdoor Jobs <noreply@glassdoor\.com>").unwrap();
+            if re.is_match(&body) {
+                data.parse_glassdoor_email(&parsed_email);
             }
         }
-
-        Ok(())
+        data
     }
 
-    pub fn parse_linkedin_email(parsed_email: Message) -> Result<HashMap<String, ParsedJob>, String> {
-        let mut jobs: HashMap<String, ParsedJob> = HashMap::new();
+    fn parse_linkedin_email(&mut self, parsed_email: &Message) {
+        // let mut jobs: HashMap<String, ParsedJob> = HashMap::new();
 
         if let Some(body) = parsed_email.body_text(0) {
             let re = Regex::new(
@@ -84,7 +101,7 @@ pub mod server {
                 );
                 println!();
 
-                jobs.insert(
+                self.parsed_jobs.insert(
                     job_id.clone(),
                     ParsedJob {
                         link: job_link,
@@ -92,7 +109,7 @@ pub mod server {
                             if line_before_url.starts_with("*") && line_before_url.ends_with("*") {
                                 line_before_url.clone()
                             } else {
-                                jobs.get(&job_id).unwrap().title.clone()
+                                self.parsed_jobs.get(&job_id).unwrap().title.clone()
                             }
                         },
                         location: {
@@ -111,7 +128,13 @@ pub mod server {
         }
 
         // println!("jobs found: {:?}", &jobs);
+    }
 
-        Ok(jobs)
+    fn parse_glassdoor_email(&self, parsed_email: &Message) {
+        unimplemented!();
     }
 }
+
+
+
+

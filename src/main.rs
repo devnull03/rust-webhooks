@@ -21,9 +21,16 @@ pub struct TimesheetAppData {
 }
 
 #[derive(Clone)]
+pub struct JobAlertAutomationAppData {
+    notion_client: Client,
+    db_id: String,
+}
+
+#[derive(Clone)]
 pub struct AppData {
-    timesheet: TimesheetAppData,
     resend: Resend,
+    timesheet: TimesheetAppData,
+    job_alert: JobAlertAutomationAppData,
 }
 pub struct CustomService {
     router: Router,
@@ -36,18 +43,32 @@ async fn main(
 ) -> Result<CustomService, shuttle_runtime::Error> {
     info!("Starting Rust Webhooks server");
 
-    let notion_api_key = secrets.get("TIMESHEET_NOTION_API_KEY").unwrap();
-    info!("Initializing Notion client");
-    let notion_client = notion::notion_client_init(notion_api_key).unwrap();
-
-    info!("Configuring application state");
-    let shared_state: Arc<AppData> = Arc::new(AppData {
-        timesheet: TimesheetAppData {
+    let timesheet_app_data: TimesheetAppData = {
+        let notion_api_key = secrets.get("TIMESHEET_NOTION_API_KEY").unwrap();
+        info!("Initializing Timesheet Notion client");
+        let notion_client = notion::notion_client_init(notion_api_key).unwrap();
+        TimesheetAppData {
             notion_client,
             db_id: secrets.get("TIMESHEET_DB_ID").unwrap(),
             automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
-        },
+        }
+    };
+
+    let job_alert_app_data: JobAlertAutomationAppData = {
+        let notion_api_key = secrets.get("JOB_ALERT_NOTION_API_KEY").unwrap();
+        info!("Initializing Timesheet Notion client");
+        let notion_client = notion::notion_client_init(notion_api_key).unwrap();
+        JobAlertAutomationAppData {
+            notion_client,
+            db_id: secrets.get("JOB_ALERT_DB_ID").unwrap(),
+        }
+    };
+
+    info!("Configuring application state");
+    let shared_state: Arc<AppData> = Arc::new(AppData {
         resend: Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str()),
+        timesheet: timesheet_app_data,
+        job_alert: job_alert_app_data,
     });
 
     let router = server::build_router(shared_state.clone());

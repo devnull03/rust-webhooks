@@ -12,7 +12,7 @@ use tracing::{error, info};
 use crate::{
     helpers::{
         email,
-        job_checker::{self},
+        job_checker::{self, JobAlertEmailHandler},
         notion,
         pdf::{create_sasi_timesheet, TimesheetData},
     },
@@ -222,10 +222,24 @@ async fn cloudflare_job_alert_reciever(
                     email_content.chars().take(200).collect::<String>()
                 );
 
+                let found_jobs = JobAlertEmailHandler::new(&email_bytes).results();
+ 
+                // Convert the HashMap to a formatted string for email
+                let job_content = if found_jobs.is_empty() {
+                    "No jobs found in email".to_string()
+                } else {
+                    let mut content = String::from("<h2>Found Jobs</h2>");
+                    for (job_title, job_url) in found_jobs.iter() {
+                        content.push_str(&format!("<p><strong>{}</strong>: <a href=\"{}\">{}</a></p>", 
+                            job_title, job_url, job_url));
+                    }
+                    content
+                };
+                
                 let subject = format!("Job alert processing from {}", payload.from);
                 email::send_email(
                     &state.resend,
-                    &email_content,
+                    &job_content,
                     Some(subject.as_str()),
                     Some(
                         Attachment::from_content(email_bytes.clone())
@@ -236,7 +250,6 @@ async fn cloudflare_job_alert_reciever(
                 .await
                 .unwrap();
 
-                // JobAlertEmailHandler::new(&email_bytes);
             }
             Err(e) => error!("Failed to parse email as UTF-8: {:?}", e),
         },
