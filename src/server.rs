@@ -222,7 +222,8 @@ async fn cloudflare_job_alert_reciever(
                     email_content.chars().take(200).collect::<String>()
                 );
 
-                let found_jobs = JobAlertEmailHandler::new(&email_bytes).results();
+                let handler = JobAlertEmailHandler::new(&email_bytes);
+                let found_jobs = handler.results();
  
                 // Convert the HashMap to a formatted string for email
                 let job_content = if found_jobs.is_empty() {

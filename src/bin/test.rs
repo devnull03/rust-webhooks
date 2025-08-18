@@ -6,7 +6,7 @@ use regex::Regex;
 #[derive(PartialEq, Eq, Hash, Debug)]
 enum JobAlertSource {
     Linkedin,
-    Glassdoor,
+    // Glassdoor,
 }
 
 #[derive(PartialEq, Eq, Hash, Debug)]
@@ -17,6 +17,8 @@ struct ParsedJob {
     location: String,
     link: String,
 }
+
+
 
 fn main() {
     let raw_email_contents = fs::read("test_mail.txt").expect("File should be in the same dir");

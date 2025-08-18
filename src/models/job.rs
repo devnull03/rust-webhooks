@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 #[derive(serde::Deserialize)]
 pub struct EmailWebhookData {
     pub from: String,
@@ -87,7 +89,7 @@ pub mod optum {
 #[derive(PartialEq, Eq, Hash, Debug)]
 pub enum JobAlertSource {
     Linkedin,
-    Glassdoor,
+    // Glassdoor,
 }
 
 #[derive(PartialEq, Eq, Hash, Debug)]
@@ -99,3 +101,9 @@ pub struct ParsedJob {
     pub link: String,
 }
 
+impl Display for ParsedJob {
+   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+       write!(f, "Source: {:?}\nJob ID: {}\nTitle: {}\nLocation: {}\nLink: {}",
+              self.source, self.job_id, self.title, self.location, self.link)
+   } 
+}

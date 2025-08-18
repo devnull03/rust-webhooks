@@ -130,7 +130,7 @@ impl JobAlertEmailHandler {
         // println!("jobs found: {:?}", &jobs);
     }
 
-    fn parse_glassdoor_email(&self, parsed_email: &Message) {
+    fn parse_glassdoor_email(&self, _parsed_email: &Message) {
         unimplemented!();
     }
 }
