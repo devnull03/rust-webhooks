@@ -2,3 +2,6 @@
 	path = cloudflare/workers-rs
 	url = git@github.com:nudded/workers-rs
 	branch = feat-email-workers
+[submodule "services/ufv-timesheet-util"]
+	path = services/ufv-timesheet-util
+	url = git@github.com:devnull03/ufv-timesheet-util.git
