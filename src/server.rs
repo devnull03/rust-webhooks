@@ -1,6 +1,6 @@
 use axum::{
     extract::State,
-    middleware,
+    // middleware,
     routing::{get, post},
     Json, Router,
 };
@@ -10,39 +10,42 @@ use std::sync::Arc;
 use tracing::{error, info};
 
 use crate::{
-    helpers::{
-        email,
-        job_checker::{self, JobAlertEmailHandler},
-        notion,
-        pdf::{create_sasi_timesheet, TimesheetData},
-    },
-    middlewares,
-    models::{
-        self,
-        job::{optum::Job, EmailWebhookData},
-    },
+    helpers::{email, job_checker::JobAlertEmailHandler},
+    models::job::EmailWebhookData,
     AppData,
 };
 
-pub fn build_router(shared_state: Arc<AppData>) -> Router {
+
+pub fn build_router(
+    shared_state: Arc<AppData>,
+    service_routers: Option<Vec<(&str, Router)>>,
+) -> Router {
     info!("Setting up router");
-    let router = Router::new()
-        .route("/notion-hook", post(notion_webhook))
-        .route_layer(middleware::from_fn_with_state(
-            shared_state.clone(),
-            middlewares::notion_automation_check,
-        ))
+
+    let mut router: Router = Router::new()
         .route("/", get(hello_world))
         .route(
             "/cloudflare-job-alert-reciever",
             post(cloudflare_job_alert_reciever),
         )
         // test routes ----------------
-        .route("/notion-test", get(notion_test))
-        .route("/notion-db", get(notion_db))
-        .route("/test", get(test))
+        // .route("/notion-test", get(notion_test))
+        // ----------------------------
+        // .route("/notion-db", get(notion_db))
+        // .route("/test", get(test))
+        // .route("/notion-hook", post(notion_webhook))
+        // .route_layer(middleware::from_fn_with_state(
+        //     shared_state.clone(),
+        //     middlewares::notion_automation_check,
+        // ))
         // ----------------------------
         .with_state(shared_state);
+
+    if let Some(service_routers) = service_routers {
+        for service_router in service_routers {
+            router = router.nest(service_router.0, service_router.1);
+        }
+    }
 
     info!("Server initialization complete");
     router
@@ -50,157 +53,6 @@ pub fn build_router(shared_state: Arc<AppData>) -> Router {
 
 async fn hello_world() -> &'static str {
     "Hello, world!"
-}
-
-async fn notion_webhook(
-    State(state): State<Arc<AppData>>,
-    Json(payload): Json<models::notion::WebhookAutomationEvent>,
-) -> String {
-    info!("Received webhook from Notion");
-
-    if payload
-        .source
-        .automation_id
-        .ne(&state.timesheet.automation_id)
-    {
-        info!(
-            "Automation ID mismatch. Received: {}",
-            payload.source.automation_id
-        );
-        return "not the automation you are looking for".to_string();
-    }
-
-    info!(
-        "Fetching timesheet data from Notion database: {}",
-        state.timesheet.db_id
-    );
-    let timesheet_raw_data =
-        notion::fetch_data(&state.timesheet.notion_client, &state.timesheet.db_id)
-            .await
-            .unwrap();
-
-    match TimesheetData::try_from(timesheet_raw_data.results) {
-        Ok(timesheet_data) => {
-            info!(
-                "Successfully parsed timesheet data with {} entries",
-                timesheet_data.entries.len()
-            );
-
-            match create_sasi_timesheet(timesheet_data) {
-                Ok(timesheet) => {
-                    info!(
-                        "Successfully created timesheet PDF, size: {} bytes",
-                        timesheet.len()
-                    );
-
-                    let email_res = email::send_timesheet_email(&state.resend, timesheet).await;
-
-                    match email_res {
-                        Ok(res) => {
-                            info!("Email sent successfully with ID: {}", res.id);
-                            res.id.to_string()
-                        }
-                        Err(e) => {
-                            error!("Error sending email: {}", e);
-                            let error_msg = format!("Error sending email (Error: {})", e);
-                            let _ = email::send_error_info(&state.resend, &error_msg).await;
-                            error_msg
-                        }
-                    }
-                }
-                Err(e) => {
-                    error!("Failed to create timesheet PDF: {}", e);
-                    let error_msg = format!("Error creating timesheet PDF: {}", e);
-                    let _ = email::send_error_info(&state.resend, &error_msg).await;
-                    error_msg
-                }
-            }
-        }
-        Err(err) => {
-            error!("Error parsing Notion database: {}", err);
-            let error_msg = format!("Error with parsing your linked database (Error: {})", err);
-            let _ = email::send_error_info(&state.resend, &error_msg).await;
-            error_msg
-        }
-    }
-}
-
-async fn notion_test(State(state): State<Arc<AppData>>) -> String {
-    info!(
-        "Fetching timesheet data from Notion database: {}",
-        state.timesheet.db_id
-    );
-    let timesheet_raw_data =
-        notion::fetch_data(&state.timesheet.notion_client, &state.timesheet.db_id)
-            .await
-            .unwrap();
-
-    match TimesheetData::try_from(timesheet_raw_data.results) {
-        Ok(timesheet_data) => {
-            info!(
-                "Successfully parsed timesheet data with {} entries",
-                timesheet_data.entries.len()
-            );
-
-            match create_sasi_timesheet(timesheet_data) {
-                Ok(timesheet) => {
-                    info!(
-                        "Successfully created timesheet PDF, size: {} bytes",
-                        timesheet.len()
-                    );
-
-                    let email_res = email::send_timesheet_email(&state.resend, timesheet).await;
-                    match email_res {
-                        Ok(res) => {
-                            info!("Email sent successfully with ID: {}", res.id);
-                            res.id.to_string()
-                        }
-                        Err(e) => {
-                            error!("Error sending email: {}", e);
-                            let error_msg = format!("Error sending email (Error: {})", e);
-                            let _ = email::send_error_info(&state.resend, &error_msg).await;
-                            error_msg
-                        }
-                    }
-
-                    // "Timesheet generated successfully".to_string()
-                }
-                Err(e) => {
-                    error!("Failed to create timesheet PDF: {}", e);
-                    let error_msg = format!("Error creating timesheet PDF: {}", e);
-                    let _ = email::send_error_info(&state.resend, &error_msg).await;
-                    error_msg
-                }
-            }
-        }
-        Err(err) => {
-            error!("Error parsing Notion database: {}", err);
-            let error_msg = format!("Error with parsing your linked database (Error: {})", err);
-            let _ = email::send_error_info(&state.resend, &error_msg).await;
-            error_msg
-        }
-    }
-}
-
-async fn notion_db(State(state): State<Arc<AppData>>) -> String {
-    info!(
-        "Retrieving database structure for: {}",
-        state.timesheet.db_id
-    );
-    notion::retrive_db(&state.timesheet.notion_client, &state.timesheet.db_id)
-        .await
-        .unwrap()
-}
-
-async fn test() -> axum::Json<Vec<Job>> {
-    let jobs = job_checker::scheduler::optum().await.unwrap();
-    // let mut res: Vec<String> = vec![];
-
-    // for ele in jobs {
-    //     res.push(ele.to_string());
-    // }
-
-    axum::Json(jobs)
 }
 
 async fn cloudflare_job_alert_reciever(
@@ -224,19 +76,21 @@ async fn cloudflare_job_alert_reciever(
 
                 let handler = JobAlertEmailHandler::new(&email_bytes);
                 let found_jobs = handler.results();
- 
+
                 // Convert the HashMap to a formatted string for email
                 let job_content = if found_jobs.is_empty() {
                     "No jobs found in email".to_string()
                 } else {
                     let mut content = String::from("<h2>Found Jobs</h2>");
                     for (job_title, job_url) in found_jobs.iter() {
-                        content.push_str(&format!("<p><strong>{}</strong>: <a href=\"{}\">{}</a></p>", 
-                            job_title, job_url, job_url));
+                        content.push_str(&format!(
+                            "<p><strong>{}</strong>: <a href=\"{}\">{}</a></p>",
+                            job_title, job_url, job_url
+                        ));
                     }
                     content
                 };
-                
+
                 let subject = format!("Job alert processing from {}", payload.from);
                 email::send_email(
                     &state.resend,
@@ -250,7 +104,6 @@ async fn cloudflare_job_alert_reciever(
                 )
                 .await
                 .unwrap();
-
             }
             Err(e) => error!("Failed to parse email as UTF-8: {:?}", e),
         },

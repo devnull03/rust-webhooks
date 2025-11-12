@@ -10,15 +10,9 @@ use helpers::notion;
 use reqwest::Client;
 use resend_rs::Resend;
 use shuttle_runtime::SecretStore;
-use std::{env, sync::Arc};
+use std::{sync::Arc};
 use tracing::info;
-
-#[derive(Clone)]
-pub struct TimesheetAppData {
-    notion_client: Client,
-    db_id: String,
-    automation_id: String,
-}
+use ufv_timesheet_util::{TimesheetConfig, TimesheetService};
 
 #[derive(Clone)]
 pub struct JobAlertAutomationAppData {
@@ -29,7 +23,6 @@ pub struct JobAlertAutomationAppData {
 #[derive(Clone)]
 pub struct AppData {
     resend: Resend,
-    timesheet: TimesheetAppData,
     job_alert: JobAlertAutomationAppData,
 }
 pub struct CustomService {
@@ -43,15 +36,18 @@ async fn main(
 ) -> Result<CustomService, shuttle_runtime::Error> {
     info!("Starting Rust Webhooks server");
 
-    let timesheet_app_data: TimesheetAppData = {
+    let (timesheet_config, timesheet_notion): (TimesheetConfig, Client) = {
         let notion_api_key = secrets.get("TIMESHEET_NOTION_API_KEY").unwrap();
         info!("Initializing Timesheet Notion client");
-        let notion_client = notion::notion_client_init(notion_api_key).unwrap();
-        TimesheetAppData {
+        let notion_client: Client = notion::notion_client_init(notion_api_key).unwrap();
+        (
+            TimesheetConfig {
+                // notion_client,
+                db_id: secrets.get("TIMESHEET_DB_ID").unwrap(),
+                automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
+            },
             notion_client,
-            db_id: secrets.get("TIMESHEET_DB_ID").unwrap(),
-            automation_id: secrets.get("TIMESHEET_AUTOMATION_ID").unwrap(),
-        }
+        )
     };
 
     let job_alert_app_data: JobAlertAutomationAppData = {
@@ -64,14 +60,21 @@ async fn main(
         }
     };
 
+    let resend = Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str());
+
     info!("Configuring application state");
     let shared_state: Arc<AppData> = Arc::new(AppData {
-        resend: Resend::new(secrets.get("RESEND_API_KEY").unwrap().as_str()),
-        timesheet: timesheet_app_data,
+        resend: resend.clone(),
+        // timesheet: timesheet_app_data,
         job_alert: job_alert_app_data,
     });
 
-    let router = server::build_router(shared_state.clone());
+    let timesheet_service = TimesheetService::new(timesheet_notion, resend, timesheet_config);
+
+    let router = server::build_router(
+        shared_state.clone(),
+        Some(vec![("/timesheet", timesheet_service.router())]),
+    );
 
     let monitor = scheduler::build_cron_worker_monitor(shared_state.clone());
 
