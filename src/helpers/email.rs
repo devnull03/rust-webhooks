@@ -31,7 +31,7 @@ pub async fn send_email(
     result
 }
 
-pub async fn send_error_info(
+pub async fn _send_error_info(
     resend: &Resend,
     error_info: &str,
 ) -> Result<CreateEmailResponse, resend_rs::Error> {

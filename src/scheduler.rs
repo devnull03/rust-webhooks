@@ -19,7 +19,7 @@ impl CronjobData {
         println!("{} from CronjobData::execute()!", &self.message);
         let optum_jobs = job_checker::scheduler::optum().await.unwrap();
 
-        if optum_jobs.len() > 0 {
+        if !optum_jobs.is_empty() {
             println!("found jobs !!!");
             let _email_res = email::send_email(
                 &self._app_data.resend,
@@ -57,12 +57,11 @@ pub fn build_cron_worker_monitor(shared_state: Arc<AppData>) -> Monitor {
         _app_data: shared_state.clone(),
     };
 
-    let monitor_instance = Monitor::new().register({
+    Monitor::new().register({
         WorkerBuilder::new("morning-cereal")
             .data(cron_service_ext)
             .retry(RetryPolicy::retries(5))
             .backend(CronStream::new_with_timezone(schedule, Local))
             .build_fn(say_hello_world)
-    });
-    monitor_instance
+    })
 }

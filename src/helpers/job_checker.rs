@@ -80,7 +80,7 @@ impl JobAlertEmailHandler {
         .unwrap();
 
             for caps in re.captures_iter(&body) {
-                let line_before_url = (&caps["line_before"]).trim().to_string();
+                let line_before_url = caps["line_before"].trim().to_string();
                 let job_id = caps["job_id"].to_string();
                 let job_link = format!("https://www.linkedin.com/comm/jobs/view/{}", &job_id);
 
@@ -121,7 +121,7 @@ impl JobAlertEmailHandler {
                             }
                         },
                         source: JobAlertSource::Linkedin,
-                        job_id: job_id,
+                        job_id,
                     },
                 );
             }

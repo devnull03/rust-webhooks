@@ -10,9 +10,7 @@ use std::sync::Arc;
 use tracing::{error, info};
 
 use crate::{
-    helpers::{email, job_checker::JobAlertEmailHandler},
-    models::job::EmailWebhookData,
-    AppData,
+    AppData, helpers::{email, job_checker::{self, JobAlertEmailHandler}}, models::job::{EmailWebhookData, optum::Job}
 };
 
 
@@ -32,7 +30,7 @@ pub fn build_router(
         // .route("/notion-test", get(notion_test))
         // ----------------------------
         // .route("/notion-db", get(notion_db))
-        // .route("/test", get(test))
+        .route("/test", get(test))
         // .route("/notion-hook", post(notion_webhook))
         // .route_layer(middleware::from_fn_with_state(
         //     shared_state.clone(),
@@ -112,4 +110,15 @@ async fn cloudflare_job_alert_reciever(
 
     // Send notification...
     "Thank you for your webhook!".to_string()
+}
+
+async fn test() -> axum::Json<Vec<Job>> {
+    let jobs = job_checker::scheduler::optum().await.unwrap();
+    // let mut res: Vec<String> = vec![];
+
+    // for ele in jobs {
+    //     res.push(ele.to_string());
+    // }
+
+    axum::Json(jobs)
 }
