@@ -1,5 +1,5 @@
 [deploy]
-include = ["templates/*"]
+include = ["services/*"]
 
 [build]
-assets = ["templates/*"]
+assets = ["templates/*", "services/*"]

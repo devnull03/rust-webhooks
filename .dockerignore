@@ -1,0 +1,8 @@
+# Exclude the service directory since it's cloned in prebuild
+services/ufv-timesheet-util
+
+# Standard exclusions
+target/
+.git/
+*.log
+.env
